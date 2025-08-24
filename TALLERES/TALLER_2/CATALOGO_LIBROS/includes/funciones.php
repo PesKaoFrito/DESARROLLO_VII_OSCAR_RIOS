@@ -85,22 +85,19 @@
     }
 
     
-    function obtenerEnlaceLibro($titulo) {
-        return "https://es.wikipedia.org/wiki/" . str_replace(' ', '_', $titulo);
+    function obtenerEnlaceWikipedia($valor) {
+        return "https://es.wikipedia.org/wiki/" . str_replace(' ', '_', $valor);
     }
 
-    function obtenerEnlaceAutor($autor) {
-        return "https://es.wikipedia.org/wiki/" . str_replace(' ', '_', $autor);
-    }
 
     function mostrarDetallesLibro($libro){
         echo "<div class='book-card'>";
             echo "<div class='book-cover'><img src='" . htmlspecialchars($libro['portada'], ENT_QUOTES) . "' alt='Portada de " . htmlspecialchars($libro['titulo'], ENT_QUOTES) . "' /></div>";
             echo "<div class='book-info'>";
                 // Título como enlace visible y en azul
-                echo "<h2 class='book-title'><a href='" . obtenerEnlaceLibro($libro['titulo']) . "' class='link-title'>" . htmlspecialchars($libro['titulo'], ENT_QUOTES) . "</a></h2>";
+                echo "<h2 class='book-title'><a href='" . obtenerEnlaceWikipedia($libro['titulo']) . "' class='link-title'>" . htmlspecialchars($libro['titulo'], ENT_QUOTES) . "</a></h2>";
                 // Línea del autor como enlace
-                echo "<p class='book-author'>por <a href='" . obtenerEnlaceAutor($libro['autor']) . "' class='link-author'>" . htmlspecialchars($libro['autor'], ENT_QUOTES) . "</a></p>";
+                echo "<p class='book-author'>por <a href='" . obtenerEnlaceWikipedia($libro['autor']) . "' class='link-author'>" . htmlspecialchars($libro['autor'], ENT_QUOTES) . "</a></p>";
                 // Meta en tamaño pequeño
                 echo "<p class='book-meta'><span class='pill'>" . htmlspecialchars($libro['anio_publicacion'], ENT_QUOTES) . "</span><span class='pill'>" . htmlspecialchars($libro['genero'], ENT_QUOTES) . "</span></p>";
                 // Descripción breve
