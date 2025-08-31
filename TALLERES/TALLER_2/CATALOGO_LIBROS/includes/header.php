@@ -17,6 +17,7 @@ Arregla la indentación, porque el autor queda muy separado del titulo y las eti
     --glass: rgba(255,255,255,0.6);
     --shadow: 0 6px 18px rgba(15,23,42,0.08);
     --radius:12px;
+    --footer-height:64px; /* ajustar si cambias la altura del footer */
 }
 
 *{box-sizing:border-box}
@@ -54,6 +55,8 @@ main{
     max-width:1100px;
     margin:0 auto 64px;
     padding:0 16px;
+    /* deja espacio inferior para que el contenido no quede oculto por el footer */
+    padding-bottom: calc(var(--footer-height) + 16px);
 }
 
 /* Barra de búsqueda y filtros */
@@ -215,15 +218,24 @@ main{
     .book-cover{width:72px;height:104px;min-width:72px}
     h1{font-size:1.35rem}
     .search-row{padding:0 8px}
-}
-footer{
-    text-align:center;
-    padding:16px 8px;
-    font-size:0.85rem;
-    color:var(--muted);
-    border-top:1px solid rgba(15,23,42,0.1);
+    footer{ padding:10px; font-size:0.9rem; }
 }
 
+/* Footer siempre visible en la parte inferior */
+footer{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:var(--footer-height);
+    background:var(--card);
+    padding:12px 18px;
+    box-shadow:0 -6px 18px rgba(15,23,42,0.06);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+}
 </style>
 <body>
     <h1>Bienvenido al Catálogo de Libros</h1>
