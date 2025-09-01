@@ -1,5 +1,5 @@
 <?php
-class Libro {
+class Libro implements Prestable {
     private $titulo;
     private $autor;
     private $anioPublicacion;
@@ -36,6 +36,23 @@ class Libro {
 
     public function obtenerInformacion() {
         return "<br>'{$this->getTitulo()}' por {$this->getAutor()}, publicado en {$this->getAnioPublicacion()}";
+    }
+    private $disponible = true;
+
+    public function prestar() {
+        if ($this->disponible) {
+            $this->disponible = false;
+            return true;
+        }
+        return false;
+    }
+
+    public function devolver() {
+        $this->disponible = true;
+    }
+
+    public function estaDisponible() {
+        return $this->disponible;
     }
 }
 
