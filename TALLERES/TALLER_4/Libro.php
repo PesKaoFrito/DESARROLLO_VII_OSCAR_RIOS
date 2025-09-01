@@ -35,7 +35,7 @@ class Libro {
     }
 
     public function obtenerInformacion() {
-        return "'{$this->getTitulo()}' por {$this->getAutor()}, publicado en {$this->getAnioPublicacion()}";
+        return "<br>'{$this->getTitulo()}' por {$this->getAutor()}, publicado en {$this->getAnioPublicacion()}";
     }
 }
 
