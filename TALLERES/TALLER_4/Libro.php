@@ -1,4 +1,5 @@
 <?php
+require_once 'Prestable.php';
 class Libro implements Prestable {
     private $titulo;
     private $autor;
@@ -60,3 +61,10 @@ class Libro implements Prestable {
 $miLibro = new Libro("  El Quijote  ", "Miguel de Cervantes", "1605");
 echo $miLibro->obtenerInformacion();
 echo "<br>Título: " . $miLibro->getTitulo();
+$libro = new Libro("Rayuela", "Julio Cortázar", 1963);
+echo $libro->obtenerInformacion() . "\n";
+echo "<br>Disponible: " . ($libro->estaDisponible() ? "Sí" : "No") . "\n";
+$libro->prestar();
+echo "<br>Disponible después de prestar: " . ($libro->estaDisponible() ? "Sí" : "No") . "\n";
+$libro->devolver();
+echo "<br>Disponible después de devolver: " . ($libro->estaDisponible() ? "Sí" : "No") . "\n";
