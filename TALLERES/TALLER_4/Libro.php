@@ -68,3 +68,26 @@ $libro->prestar();
 echo "<br>Disponible después de prestar: " . ($libro->estaDisponible() ? "Sí" : "No") . "\n";
 $libro->devolver();
 echo "<br>Disponible después de devolver: " . ($libro->estaDisponible() ? "Sí" : "No") . "\n";
+
+$biblioteca = new Biblioteca();
+
+$libro1 = new Libro("El principito", "Antoine de Saint-Exupéry", 1943);
+$libro2 = new LibroDigital("Dune", "Frank Herbert", 1965, "EPUB", 3.2);
+
+$biblioteca->agregarLibro($libro1);
+$biblioteca->agregarLibro($libro2);
+
+echo "Listado inicial de libros:\n";
+$biblioteca->listarLibros();
+
+echo "Prestando 'El principito'...\n";
+$biblioteca->prestarLibro("El principito");
+
+echo "Listado después de prestar:\n";
+$biblioteca->listarLibros();
+
+echo "Devolviendo 'El principito'...\n";
+$biblioteca->devolverLibro("El principito");
+
+echo "Listado final:\n";
+$biblioteca->listarLibros();
