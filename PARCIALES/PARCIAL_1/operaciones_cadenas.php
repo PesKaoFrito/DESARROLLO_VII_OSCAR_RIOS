@@ -18,7 +18,7 @@
                 echo $palabraActual."\n";
                 $palabrasRep=[$palabraActual=>$cont];
             }
-            ++$i1;
+            $i1++;
         }
         return $palabrasRep;
     }
