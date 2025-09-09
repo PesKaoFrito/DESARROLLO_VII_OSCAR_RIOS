@@ -9,6 +9,7 @@
         while (isset($palabras1[$i1])) {
             $palabraActual=strtolower($palabras1[$i1]);
             $cont=1;
+            $i2 = 0;
             while (isset($palabras2[$i2])) {
                 $palabraComp=strtolower($palabras2[$i2]);
                 if ($palabraActual==$palabraComp){
