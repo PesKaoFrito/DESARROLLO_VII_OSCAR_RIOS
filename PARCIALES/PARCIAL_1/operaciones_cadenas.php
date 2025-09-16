@@ -4,11 +4,10 @@
         $palabras2= $palabras1;
         print_r($palabras2);
         $i1=0;
-        $i2=1;
         $palabrasRep=[];
         while (isset($palabras1[$i1])) {
             $palabraActual=strtolower($palabras1[$i1]);
-            $cont=1;
+            $cont=0;
             $i2 = 0;
             while (isset($palabras2[$i2])) {
                 $palabraComp=strtolower($palabras2[$i2]);
@@ -17,8 +16,8 @@
                 }
                 $i2++;
                 echo $palabraActual."\n";
-                $palabrasRep=[$palabraActual=>$cont];
             }
+            $palabrasRep=[$palabraActual=>$cont];
             $i1++;
         }
         return $palabrasRep;
