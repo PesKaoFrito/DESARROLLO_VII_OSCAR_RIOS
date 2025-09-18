@@ -1,4 +1,5 @@
 <?php
+    // Clase Empleado: archivo único para la clase. Las inclusiones se centralizan en index.php
     class Empleado{
         private $nombre;
         private $idEmpleado;

@@ -1,6 +1,5 @@
 <?php
-    include 'Empleado.php';
-    include 'Evaluable.php';
+    // Clase Desarrollador: depende de Empleado y Evaluable. Las inclusiones se gestionan desde index.php
     class Desarrollador extends Empleado implements Evaluable{
         private $lenguajePrincipal;
         private $nivelExperiencia;
@@ -27,6 +26,13 @@
             $this->nivelExperiencia=$nivelExperiencia;
         }
         public function evaluarDesempenio(){
+            if($this->nivelExperiencia >= 5){
+                return "Excelente";
+            } elseif ($this->nivelExperiencia >= 3) {
+                return "Bueno";
+            } else {
+                return "Regular";
+            }
         }
     }
 ?>

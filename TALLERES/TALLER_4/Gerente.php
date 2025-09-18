@@ -1,7 +1,7 @@
 <?php
-    include 'Empleado.php';
+    // Clase Gerente: depende de Empleado y Evaluable. Las inclusiones se gestionan desde index.php
 
-    class Gerente extends Empleado{
+    class Gerente extends Empleado implements Evaluable{
         
         private $departamento;
 
@@ -23,6 +23,9 @@
             else {
                 return $salarioBase*0.08;
             }
+        }
+        public function evaluarDesempenio(){
+            return "Excelente";
         }
     }
 ?>
