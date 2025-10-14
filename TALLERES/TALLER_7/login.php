@@ -1,5 +1,7 @@
 <?php
-session_start();
+
+// Procesar el formulario cuando se envía
+include 'config_sesion.php';
 
 // Si ya hay una sesión activa, redirigir al panel
 if(isset($_SESSION['usuario'])) {
@@ -7,11 +9,12 @@ if(isset($_SESSION['usuario'])) {
     exit();
 }
 
-// Procesar el formulario cuando se envía
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST['usuario'];
     $contrasena = $_POST['contrasena'];
-
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("Error de validación CSRF");
+    }
     // En un caso real, verificaríamos contra una base de datos
     if($usuario === "admin" && $contrasena === "1234") {
         $_SESSION['usuario'] = $usuario;
@@ -21,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Usuario o contraseña incorrectos";
     }
 }
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" id="usuario" name="usuario" required><br><br>
         <label for="contrasena">Contraseña:</label><br>
         <input type="password" id="contrasena" name="contrasena" required><br><br>
+        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
         <input type="submit" value="Iniciar Sesión">
     </form>
 </body>
