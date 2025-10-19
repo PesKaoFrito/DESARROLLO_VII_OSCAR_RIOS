@@ -1,32 +1,41 @@
 <?php
 function sanitizarNombre($nombre) {
-    return filter_var(trim($nombre), FILTER_SANITIZE_STRING);
+    return trim(filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 }
 
 function sanitizarEmail($email) {
     return filter_var(trim($email), FILTER_SANITIZE_EMAIL);
 }
 
-function sanitizarEdad($edad) {
-    return filter_var($edad, FILTER_SANITIZE_NUMBER_INT);
-}
-
 function sanitizarSitioWeb($sitioWeb) {
-    return filter_var(trim($sitioWeb), FILTER_SANITIZE_URL);
+    $url = trim($sitioWeb);
+    $url = filter_var($url, FILTER_SANITIZE_URL);
+    return filter_var($url, FILTER_VALIDATE_URL) ? $url : null;
 }
 
 function sanitizarGenero($genero) {
-    return filter_var(trim($genero), FILTER_SANITIZE_STRING);
+    return trim(filter_var($genero, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 }
 
 function sanitizarIntereses($intereses) {
+    if (!is_array($intereses)) return [];
     return array_map(function($interes) {
-        return filter_var(trim($interes), FILTER_SANITIZE_STRING);
+        return trim(filter_var($interes, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     }, $intereses);
 }
 
 function sanitizarComentarios($comentarios) {
     return htmlspecialchars(trim($comentarios), ENT_QUOTES, 'UTF-8');
 }
+
+function sanitizarFechaNacimiento($fecha) {
+    return trim(filter_var($fecha, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+}
+
+/* Alias por compatibilidad (opcional): si tu procesar.php usa sanitizarSitio_web */
+if (!function_exists('sanitizarSitio_web')) {
+    function sanitizarSitio_web($s) {
+        return sanitizarSitioWeb($s);
+    }
+}
 ?>
-        

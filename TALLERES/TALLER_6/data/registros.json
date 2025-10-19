@@ -1,0 +1,58 @@
+[
+    {
+        "nombre": "El Binsho",
+        "email": "binsho@gmail.com",
+        "sitio_web": "https:\/\/elbinsho.com\/",
+        "genero": "masculino",
+        "intereses": [
+            "deportes"
+        ],
+        "comentarios": "Desde los 17, yo defino como un 9",
+        "foto_perfil": "uploads\/68f51a0fda007_486x486bb.png",
+        "id": "68f51a0fdabc7",
+        "fecha_registro": "2025-10-19 17:04:15"
+    },
+    {
+        "nombre": "Andiex",
+        "email": "andiex@gmail.com",
+        "sitio_web": "https:\/\/andiex.com\/",
+        "genero": "masculino",
+        "intereses": [
+            "deportes"
+        ],
+        "comentarios": "Recuerdo one time",
+        "foto_perfil": "uploads\/68f51afb74ec7_9FJMS1zD_400x400.jpg",
+        "id": "68f51afb75225",
+        "fecha_registro": "2025-10-19 17:08:11"
+    },
+    {
+        "nombre": "Oscar",
+        "fecha_nacimiento": "2002-04-27",
+        "email": "a@b.com",
+        "sitio_web": "https:\/\/oscar.com\/",
+        "genero": "masculino",
+        "intereses": [
+            "lectura"
+        ],
+        "comentarios": "Hola K Ase",
+        "edad": 23,
+        "foto_perfil": "uploads\/68f51fd83d6fa_Scan.jpg",
+        "id": "68f51fd83f979",
+        "fecha_registro": "2025-10-19 17:28:56"
+    },
+    {
+        "nombre": "Test",
+        "fecha_nacimiento": "2001-01-01",
+        "email": "test@test.com",
+        "sitio_web": "https:\/\/test.com\/",
+        "genero": "masculino",
+        "intereses": [
+            "deportes"
+        ],
+        "comentarios": "1234",
+        "edad": 24,
+        "foto_perfil": "uploads\/68f5219dd70f9_pexels-anntarazevich-6173661.jpg",
+        "id": "68f5219dd73b8",
+        "fecha_registro": "2025-10-19 17:36:29"
+    }
+]

@@ -8,7 +8,7 @@ function validarEmail($email) {
 }
 
 function validarEdad($edad) {
-    return is_numeric($edad) && $edad >= 18 && $edad <= 120;
+    return is_numeric($edad);
 }
 
 function validarSitioWeb($sitioWeb) {
@@ -47,5 +47,22 @@ function validarFotoPerfil($archivo) {
 
     return true;
 }
+
+function validarFechaNacimiento($fecha) {
+    $fecha_obj = DateTime::createFromFormat('Y-m-d', $fecha);
+    if (!$fecha_obj) {
+        return false;
+    }
+    
+    $hoy = new DateTime();
+    $edad = $hoy->diff($fecha_obj)->y;
+    
+    return $fecha_obj && $fecha_obj <= $hoy && $edad <= 120;
+}
+
+function calcularEdad($fecha_nacimiento) {
+    $fecha_obj = new DateTime($fecha_nacimiento);
+    $hoy = new DateTime();
+    return $hoy->diff($fecha_obj)->y;
+}
 ?>
-        
