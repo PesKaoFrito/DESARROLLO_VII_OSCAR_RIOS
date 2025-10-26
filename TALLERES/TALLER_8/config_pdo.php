@@ -1,13 +1,22 @@
 <?php
-define('DB_SERVER', '127.0.0.1');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
-define('DB_NAME', 'taller8_db');
+require_once 'error_log.php';
 
-try{
-    $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e){
-    die("ERROR: No se pudo conectar. " . $e->getMessage());
+try {
+    $dsn = "mysql:host=localhost;dbname=taller8_db;charset=utf8mb4";
+    $usuario = "root";
+    $password = "";
+    
+    $pdo = new PDO($dsn, $usuario, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
+} catch (PDOException $e) {
+    $logger = ErrorLogger::getInstance();
+    $logger->logError(
+        "Error de conexión: " . $e->getMessage(),
+        'PDO_ERROR',
+        __FILE__,
+        __LINE__
+    );
+    die("Error de conexión: " . $e->getMessage());
 }
-?>
