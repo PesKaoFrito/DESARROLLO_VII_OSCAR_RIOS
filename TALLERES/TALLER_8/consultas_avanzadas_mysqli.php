@@ -55,6 +55,76 @@ if ($result) {
 } else {
     echo "Error: " . mysqli_error($conn);
 }
+<<<<<<< HEAD
 
+=======
+// 4. Listar los usuarios que no han realizado ninguna publicación
+$sql = "SELECT u.nombre
+        FROM usuarios u 
+        LEFT JOIN publicaciones p ON u.id = p.usuario_id 
+        WHERE p.id IS NULL";
+$result = mysqli_query($conn, $sql);
+if ($result) {
+    echo "<h3>Usuarios sin publicaciones:</h3>";
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "Nombre: " . $row['nombre'] . "<br>";
+    }
+    mysqli_free_result($result);
+} else {
+    echo "Error: " . mysqli_error($conn);
+}
+
+// 5. Calcular el promedio de publicaciones por usuario
+$sql = "SELECT AVG(num_publicaciones) as promedio 
+        FROM (SELECT COUNT(*) as num_publicaciones 
+              FROM publicaciones 
+              GROUP BY usuario_id) as subquery";
+
+$result = mysqli_query($conn, $sql);
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    echo "<h3>Promedio de publicaciones por usuario:</h3>";
+    echo "Promedio: " . $row['promedio'];
+    mysqli_free_result($result);
+} else {
+    echo "Error: " . mysqli_error($conn);
+}
+
+// 6. Encontrar la publicación más reciente de cada usuario
+$sql = "SELECT u.nombre, p.titulo, p.fecha_publicacion 
+        FROM usuarios u 
+        INNER JOIN publicaciones p ON u.id = p.usuario_id 
+        WHERE p.fecha_publicacion = (SELECT MAX(fecha_publicacion) 
+                                      FROM publicaciones 
+                                      WHERE usuario_id = u.id)";
+
+$result = mysqli_query($conn, $sql);
+if ($result) {
+    echo "<h3>Últimas publicaciones de cada usuario:</h3>";
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "Usuario: " . $row['nombre'] . ", Título: " . $row['titulo'] . ", Fecha: " . $row['fecha_publicacion'] . "<br>";
+    }
+    mysqli_free_result($result);
+} else {
+    echo "Error: " . mysqli_error($conn);
+}
+
+// 7. Mostrar las últimas 5 publicaciones con el nombre del autor y la fecha de publicación
+$sql = "SELECT p.titulo, u.nombre as autor, p.fecha_publicacion 
+        FROM publicaciones p 
+        INNER JOIN usuarios u ON p.usuario_id = u.id 
+        ORDER BY p.fecha_publicacion DESC 
+        LIMIT 5";
+$result = mysqli_query($conn, $sql);
+if ($result) {
+    echo "<h3>Últimas 5 publicaciones:</h3>";
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "Título: " . $row['titulo'] . ", Autor: " . $row['autor'] . ", Fecha: " . $row['fecha_publicacion'] . "<br>";
+    }
+    mysqli_free_result($result);
+} else {
+    echo "Error: " . mysqli_error($conn);
+}
+>>>>>>> e3c08f64fcf462ca48271b5220cc2972d1d5fa25
 mysqli_close($conn);
 ?>
