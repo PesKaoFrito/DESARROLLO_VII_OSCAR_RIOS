@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistema de Reclamos</title>
-    <link rel="stylesheet" href="<?= PUBLIC_URL ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?= PUBLIC_URL ?>/assets/css/app.css">
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

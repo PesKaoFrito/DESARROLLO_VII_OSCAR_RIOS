@@ -1,18 +1,8 @@
 <?php
-require_once '../../config.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/helpers.php';
-require_once '../../src/Database.php';
-require_once '../../src/Claims/ClaimManager.php';
-require_once '../../src/Policies/PolicyManager.php';
-require_once '../../src/Users/UserManager.php';
-require_once '../../src/Statuses/StatusManager.php';
-
-requireAuth();
-
-$claimManager = new ClaimManager();
-$policyManager = new PolicyManager();
-$statusManager = new StatusManager();
+/**
+ * Claims - List View
+ * URL: /claims or /claims/list
+ */
 
 // Filtros
 $searchTerm = $_GET['search'] ?? '';
@@ -139,11 +129,12 @@ ob_start();
 
 <div class="page-header">
     <h1>📋 Gestión de Reclamos</h1>
-    <a href="create.php" class="btn btn-primary">➕ Nuevo Reclamo</a>
+    <a href="<?= url('claims/create') ?>" class="btn btn-primary">➕ Nuevo Reclamo</a>
 </div>
 
 <div class="filters-section">
-    <form method="GET" class="filters-form">
+    <form method="GET" action="<?= url('claims') ?>" class="filters-form">
+        <input type="hidden" name="action" value="list">
         <div class="filter-group">
             <label for="search">Buscar</label>
             <input type="text" id="search" name="search" placeholder="Número, asegurado..." value="<?= htmlspecialchars($searchTerm) ?>">
@@ -164,7 +155,7 @@ ob_start();
         </div>
         <?php if ($searchTerm || $statusFilter): ?>
         <div class="filter-group" style="display: flex; align-items: flex-end;">
-            <a href="index.php" class="btn btn-secondary" style="width: 100%;">🔄 Limpiar</a>
+            <a href="<?= url('claims') ?>" class="btn btn-secondary" style="width: 100%;">🔄 Limpiar</a>
         </div>
         <?php endif; ?>
     </form>
@@ -175,7 +166,7 @@ ob_start();
         <div class="no-data">
             <p style="font-size: 3rem;">📋</p>
             <p>No se encontraron reclamos</p>
-            <a href="create.php" class="btn btn-primary" style="margin-top: 1rem;">Crear el primero</a>
+            <a href="<?= url('claims/create') ?>" class="btn btn-primary" style="margin-top: 1rem;">Crear el primero</a>
         </div>
     <?php else: ?>
         <table class="table">
@@ -207,8 +198,8 @@ ob_start();
                     <td><?= formatDate($claim['created_at']) ?></td>
                     <td>
                         <div class="action-buttons">
-                            <a href="view.php?id=<?= $claim['id'] ?>" class="btn btn-sm btn-primary">👁️ Ver</a>
-                            <a href="edit.php?id=<?= $claim['id'] ?>" class="btn btn-sm btn-secondary">✏️ Editar</a>
+                            <a href="<?= url('claims/view/' . $claim['id']) ?>" class="btn btn-sm btn-primary">👁️ Ver</a>
+                            <a href="<?= url('claims/edit/' . $claim['id']) ?>" class="btn btn-sm btn-secondary">✏️ Editar</a>
                         </div>
                     </td>
                 </tr>
@@ -220,5 +211,5 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-require '../../views/layout.php';
+require __DIR__ . '/../../../views/layout.php';
 ?>

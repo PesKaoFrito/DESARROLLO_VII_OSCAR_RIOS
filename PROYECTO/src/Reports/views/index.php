@@ -1,12 +1,8 @@
 <?php
-require_once '../../config.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/helpers.php';
-require_once '../../src/Database.php';
-require_once '../../src/Claims/ClaimManager.php';
-require_once '../../src/Policies/PolicyManager.php';
-
-requireAuth();
+/**
+ * Reports - Dashboard Principal
+ * URL: /reports
+ */
 
 $claimManager = new ClaimManager();
 $policyManager = new PolicyManager();
@@ -151,6 +147,9 @@ ob_start();
         gap: 1rem;
         margin-top: 2rem;
     }
+    @media print {
+        .export-buttons, .navbar { display: none; }
+    }
 </style>
 
 <div class="page-header">
@@ -273,10 +272,10 @@ ob_start();
 
 <div class="export-buttons">
     <button onclick="window.print()" class="btn btn-primary">🖨️ Imprimir Reporte</button>
-    <button onclick="alert('Funcionalidad de exportación a implementar')" class="btn btn-secondary">📥 Exportar a Excel</button>
+    <a href="<?= url('reports/export') ?>" class="btn btn-secondary">📥 Exportar Datos</a>
 </div>
 
 <?php
 $content = ob_get_clean();
-require '../../views/layout.php';
+require __DIR__ . '/../../../views/layout.php';
 ?>

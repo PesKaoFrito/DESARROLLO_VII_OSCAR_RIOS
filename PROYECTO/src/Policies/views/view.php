@@ -1,25 +1,14 @@
 <?php
-require_once '../../config.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/helpers.php';
-require_once '../../src/Database.php';
-require_once '../../src/Policies/PolicyManager.php';
+/**
+ * Policies - View Detail
+ * URL: /policies/view/123
+ */
 
-requireAuth();
-
-$id = $_GET['id'] ?? null;
-if (!$id) {
-    header('Location: index.php');
-    exit;
-}
-
-$policyManager = new PolicyManager();
 $policy = $policyManager->getPolicyById($id);
 
 if (!$policy) {
-    $_SESSION['error'] = 'Póliza no encontrada';
-    header('Location: index.php');
-    exit;
+    setFlashMessage('error', 'Póliza no encontrada');
+    redirectTo(url('policies'));
 }
 
 $isExpired = strtotime($policy['end_date']) < time();
@@ -84,9 +73,6 @@ ob_start();
         font-weight: 700;
         color: #667eea;
         margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
     }
     .info-row {
         display: flex;
@@ -103,31 +89,24 @@ ob_start();
     }
     .info-value {
         color: #333;
-        font-weight: 500;
         text-align: right;
     }
-    .action-buttons {
+    .actions {
         display: flex;
         gap: 1rem;
         margin-top: 2rem;
-        padding-top: 2rem;
-        border-top: 2px solid #e0e0e0;
     }
 </style>
 
 <div class="policy-details">
     <div class="policy-header">
         <div class="policy-title">
-            <div>
-                <div class="policy-number"><?= htmlspecialchars($policy['policy_number']) ?></div>
-                <div style="color: #666; margin-top: 0.5rem;">
-                    Creada: <?= formatDate($policy['created_at']) ?>
-                </div>
-            </div>
+            <h1 class="policy-number"><?= htmlspecialchars($policy['policy_number']) ?></h1>
             <span class="policy-status <?= $isExpired ? 'expired' : 'active' ?>">
                 <?= $isExpired ? '❌ Vencida' : '✅ Activa' ?>
             </span>
         </div>
+        <p style="color: #666; margin: 0;"><?= htmlspecialchars($policy['policy_type']) ?></p>
     </div>
 
     <div class="info-grid">
@@ -145,14 +124,16 @@ ob_start();
                 <span class="info-label">Teléfono:</span>
                 <span class="info-value"><?= htmlspecialchars($policy['insured_phone']) ?></span>
             </div>
+            <?php if (!empty($policy['insured_address'])): ?>
+            <div class="info-row">
+                <span class="info-label">Dirección:</span>
+                <span class="info-value"><?= htmlspecialchars($policy['insured_address']) ?></span>
+            </div>
+            <?php endif; ?>
         </div>
 
         <div class="info-section">
-            <div class="info-section-title">📋 Detalles de la Póliza</div>
-            <div class="info-row">
-                <span class="info-label">Tipo:</span>
-                <span class="info-value"><?= htmlspecialchars($policy['policy_type']) ?></span>
-            </div>
+            <div class="info-section-title">💰 Información Financiera</div>
             <div class="info-row">
                 <span class="info-label">Cobertura:</span>
                 <span class="info-value"><?= formatMoney($policy['coverage_amount']) ?></span>
@@ -161,53 +142,31 @@ ob_start();
                 <span class="info-label">Prima:</span>
                 <span class="info-value"><?= formatMoney($policy['premium_amount']) ?></span>
             </div>
-        </div>
-    </div>
-
-    <div class="info-section">
-        <div class="info-section-title">📅 Vigencia</div>
-        <div class="info-row">
-            <span class="info-label">Fecha de Inicio:</span>
-            <span class="info-value"><?= formatDate($policy['start_date']) ?></span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Fecha de Fin:</span>
-            <span class="info-value"><?= formatDate($policy['end_date']) ?></span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Duración:</span>
-            <span class="info-value">
-                <?php
-                $start = new DateTime($policy['start_date']);
-                $end = new DateTime($policy['end_date']);
-                $interval = $start->diff($end);
-                echo $interval->days . ' días';
-                ?>
-            </span>
+            <div class="info-row">
+                <span class="info-label">Inicio:</span>
+                <span class="info-value"><?= formatDate($policy['start_date']) ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Fin:</span>
+                <span class="info-value"><?= formatDate($policy['end_date']) ?></span>
+            </div>
         </div>
     </div>
 
     <?php if (!empty($policy['description'])): ?>
     <div class="info-section">
         <div class="info-section-title">📝 Descripción</div>
-        <div style="padding: 1rem 0; line-height: 1.6;">
-            <?= nl2br(htmlspecialchars($policy['description'])) ?>
-        </div>
+        <p style="margin: 0; color: #333;"><?= nl2br(htmlspecialchars($policy['description'])) ?></p>
     </div>
     <?php endif; ?>
 
-    <div class="action-buttons">
-        <a href="index.php" class="btn btn-secondary">← Volver al Listado</a>
-        <a href="edit.php?id=<?= $policy['id'] ?>" class="btn btn-primary">✏️ Editar Póliza</a>
-        <?php if (hasRole('admin')): ?>
-        <button onclick="if(confirm('¿Está seguro de eliminar esta póliza?')) { window.location.href='delete.php?id=<?= $policy['id'] ?>'; }" class="btn btn-danger">
-            🗑️ Eliminar
-        </button>
-        <?php endif; ?>
+    <div class="actions">
+        <a href="<?= url('policies') ?>" class="btn btn-secondary">← Volver</a>
+        <a href="<?= url('policies/edit/' . $policy['id']) ?>" class="btn btn-primary">✏️ Editar</a>
     </div>
 </div>
 
 <?php
 $content = ob_get_clean();
-require '../../views/layout.php';
+require __DIR__ . '/../../../views/layout.php';
 ?>

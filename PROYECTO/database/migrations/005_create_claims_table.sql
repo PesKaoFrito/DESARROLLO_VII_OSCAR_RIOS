@@ -1,5 +1,5 @@
 CREATE TABLE claims(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     claim_number VARCHAR(100) NOT NULL,
     insured_name VARCHAR(100) NOT NULL,
     category VARCHAR(100) NOT NULL,

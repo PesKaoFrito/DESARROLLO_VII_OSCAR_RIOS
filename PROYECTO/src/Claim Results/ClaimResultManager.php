@@ -22,14 +22,17 @@ class ClaimResultManager {
     
     // Método para crear un nuevo resultado de reclamo
     public function createClaimResult($claimResult) {
-        $stmt = $this->db->prepare("INSERT INTO claims_results (id, claim_id, decision, comments, resolved_by) VALUES (?, ?, ?, ?, ?)");
-        return $stmt->execute([
-            $claimResult->id,
+        $stmt = $this->db->prepare("INSERT INTO claims_results (claim_id, decision, comments, resolved_by) VALUES (?, ?, ?, ?)");
+        
+        if ($stmt->execute([
             $claimResult->claimId, 
             $claimResult->decision, 
             $claimResult->comments, 
             $claimResult->resolvedBy
-        ]);
+        ])) {
+            return $this->db->lastInsertId();
+        }
+        return false;
     }
 
     // Método para obtener un resultado por ID

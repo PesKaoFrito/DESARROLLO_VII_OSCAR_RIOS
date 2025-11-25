@@ -1,13 +1,9 @@
 <?php
-require_once '../../config.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/helpers.php';
-require_once '../../src/Database.php';
-require_once '../../src/Policies/PolicyManager.php';
+/**
+ * Policies - List View
+ * URL: /policies or /policies/list
+ */
 
-requireAuth();
-
-$policyManager = new PolicyManager();
 $searchTerm = $_GET['search'] ?? '';
 
 if ($searchTerm) {
@@ -107,15 +103,16 @@ ob_start();
 
 <div class="page-header">
     <h1>📄 Gestión de Pólizas</h1>
-    <a href="create.php" class="btn btn-primary">➕ Nueva Póliza</a>
+    <a href="<?= url('policies/create') ?>" class="btn btn-primary">➕ Nueva Póliza</a>
 </div>
 
 <div class="search-section">
-    <form method="GET" class="search-form">
+    <form method="GET" action="<?= url('policies') ?>" class="search-form">
+        <input type="hidden" name="action" value="list">
         <input type="text" name="search" placeholder="Buscar por número, asegurado, email..." value="<?= htmlspecialchars($searchTerm) ?>">
         <button type="submit" class="btn btn-primary">🔍 Buscar</button>
         <?php if ($searchTerm): ?>
-            <a href="index.php" class="btn btn-secondary">🔄 Limpiar</a>
+            <a href="<?= url('policies') ?>" class="btn btn-secondary">🔄 Limpiar</a>
         <?php endif; ?>
     </form>
 </div>
@@ -124,7 +121,7 @@ ob_start();
     <div style="text-align: center; padding: 3rem; background: white; border-radius: 10px;">
         <p style="font-size: 3rem;">📄</p>
         <p>No se encontraron pólizas</p>
-        <a href="create.php" class="btn btn-primary" style="margin-top: 1rem;">Crear la primera</a>
+        <a href="<?= url('policies/create') ?>" class="btn btn-primary" style="margin-top: 1rem;">Crear la primera</a>
     </div>
 <?php else: ?>
     <div class="policies-grid">
@@ -165,8 +162,8 @@ ob_start();
                 </div>
                 
                 <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-                    <a href="view.php?id=<?= $policy['id'] ?>" class="btn btn-sm btn-primary">👁️ Ver</a>
-                    <a href="edit.php?id=<?= $policy['id'] ?>" class="btn btn-sm btn-secondary">✏️ Editar</a>
+                    <a href="<?= url('policies/view/' . $policy['id']) ?>" class="btn btn-sm btn-primary">👁️ Ver</a>
+                    <a href="<?= url('policies/edit/' . $policy['id']) ?>" class="btn btn-sm btn-secondary">✏️ Editar</a>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -175,5 +172,5 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-require '../../views/layout.php';
+require __DIR__ . '/../../../views/layout.php';
 ?>

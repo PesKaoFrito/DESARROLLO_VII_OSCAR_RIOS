@@ -1,13 +1,16 @@
 <?php
-require_once '../../config.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/helpers.php';
-require_once '../../src/Database.php';
-require_once '../../src/Policies/PolicyManager.php';
+/**
+ * Policies - Edit View
+ * URL: /policies/edit/123
+ */
 
-requireAuth();
+$policy = $policyManager->getPolicyById($id);
 
-$policyManager = new PolicyManager();
+if (!$policy) {
+    setFlashMessage('error', 'Póliza no encontrada');
+    redirectTo(url('policies'));
+}
+
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -49,18 +52,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'description' => $_POST['description'] ?? ''
         ];
 
-        $newId = $policyManager->createPolicy($data);
-        if ($newId) {
-            $_SESSION['success'] = 'Póliza creada exitosamente';
-            header('Location: view.php?id=' . $newId);
-            exit;
+        if ($policyManager->updatePolicy($id, $data)) {
+            setFlashMessage('success', 'Póliza actualizada exitosamente');
+            redirectTo(url('policies/view/' . $id));
         } else {
-            $errors[] = 'Error al crear la póliza';
+            $errors[] = 'Error al actualizar la póliza';
         }
     }
 }
 
-$pageTitle = 'Nueva Póliza';
+$pageTitle = 'Editar Póliza';
 $showNav = true;
 
 ob_start();
@@ -110,7 +111,6 @@ ob_start();
     .form-input:focus, .form-select:focus, .form-textarea:focus {
         outline: none;
         border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
     .form-textarea {
         resize: vertical;
@@ -130,22 +130,18 @@ ob_start();
         border-radius: 5px;
         margin-bottom: 1.5rem;
     }
-    .error-list ul {
-        margin: 0;
-        padding-left: 1.5rem;
-    }
 </style>
 
 <div class="form-container">
     <div class="form-header">
-        <h1>➕ Nueva Póliza</h1>
-        <p style="color: #666; margin-top: 0.5rem;">Complete los datos para crear una nueva póliza</p>
+        <h1>✏️ Editar Póliza</h1>
+        <p style="color: #666; margin-top: 0.5rem;"><?= htmlspecialchars($policy['policy_number']) ?></p>
     </div>
 
     <?php if (!empty($errors)): ?>
     <div class="error-list">
         <strong>⚠️ Errores encontrados:</strong>
-        <ul>
+        <ul style="margin: 0; padding-left: 1.5rem;">
             <?php foreach ($errors as $error): ?>
                 <li><?= htmlspecialchars($error) ?></li>
             <?php endforeach; ?>
@@ -153,27 +149,22 @@ ob_start();
     </div>
     <?php endif; ?>
 
-    <form method="POST" action="">
+    <form method="POST" action="<?= url('policies/edit/' . $id) ?>">
         <div class="form-grid">
             <div class="form-group">
-                <label class="form-label">
-                    Número de Póliza <span class="required">*</span>
-                </label>
+                <label class="form-label">Número de Póliza <span class="required">*</span></label>
                 <input type="text" name="policy_number" class="form-input" 
-                       value="<?= htmlspecialchars($_POST['policy_number'] ?? 'POL-' . date('Y') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT)) ?>" required>
+                       value="<?= htmlspecialchars($policy['policy_number']) ?>" required>
             </div>
 
             <div class="form-group">
-                <label class="form-label">
-                    Tipo de Póliza <span class="required">*</span>
-                </label>
+                <label class="form-label">Tipo de Póliza <span class="required">*</span></label>
                 <select name="policy_type" class="form-select" required>
-                    <option value="">Seleccione un tipo</option>
                     <?php
                     $types = ['Vida', 'Salud', 'Auto', 'Hogar', 'Responsabilidad Civil', 'Viaje', 'Otro'];
                     foreach ($types as $type):
                     ?>
-                        <option value="<?= $type ?>" <?= ($_POST['policy_type'] ?? '') === $type ? 'selected' : '' ?>>
+                        <option value="<?= $type ?>" <?= $policy['policy_type'] === $type ? 'selected' : '' ?>>
                             <?= $type ?>
                         </option>
                     <?php endforeach; ?>
@@ -183,79 +174,65 @@ ob_start();
 
         <div class="form-grid">
             <div class="form-group">
-                <label class="form-label">
-                    Nombre del Asegurado <span class="required">*</span>
-                </label>
+                <label class="form-label">Nombre del Asegurado <span class="required">*</span></label>
                 <input type="text" name="insured_name" class="form-input" 
-                       value="<?= htmlspecialchars($_POST['insured_name'] ?? '') ?>" required>
+                       value="<?= htmlspecialchars($policy['insured_name']) ?>" required>
             </div>
 
             <div class="form-group">
-                <label class="form-label">
-                    Email <span class="required">*</span>
-                </label>
+                <label class="form-label">Email <span class="required">*</span></label>
                 <input type="email" name="insured_email" class="form-input" 
-                       value="<?= htmlspecialchars($_POST['insured_email'] ?? '') ?>" required>
+                       value="<?= htmlspecialchars($policy['insured_email']) ?>" required>
             </div>
 
             <div class="form-group">
-                <label class="form-label">
-                    Teléfono <span class="required">*</span>
-                </label>
+                <label class="form-label">Teléfono <span class="required">*</span></label>
                 <input type="tel" name="insured_phone" class="form-input" 
-                       value="<?= htmlspecialchars($_POST['insured_phone'] ?? '') ?>" required>
+                       value="<?= htmlspecialchars($policy['insured_phone']) ?>" required>
             </div>
         </div>
 
         <div class="form-grid">
             <div class="form-group">
-                <label class="form-label">
-                    Monto de Cobertura <span class="required">*</span>
-                </label>
+                <label class="form-label">Monto de Cobertura <span class="required">*</span></label>
                 <input type="number" name="coverage_amount" class="form-input" step="0.01" min="0"
-                       value="<?= htmlspecialchars($_POST['coverage_amount'] ?? '') ?>" required>
+                       value="<?= $policy['coverage_amount'] ?>" required>
             </div>
 
             <div class="form-group">
-                <label class="form-label">
-                    Monto de Prima <span class="required">*</span>
-                </label>
+                <label class="form-label">Monto de Prima <span class="required">*</span></label>
                 <input type="number" name="premium_amount" class="form-input" step="0.01" min="0"
-                       value="<?= htmlspecialchars($_POST['premium_amount'] ?? '') ?>" required>
+                       value="<?= $policy['premium_amount'] ?>" required>
             </div>
         </div>
 
         <div class="form-grid">
             <div class="form-group">
-                <label class="form-label">
-                    Fecha de Inicio <span class="required">*</span>
-                </label>
+                <label class="form-label">Fecha de Inicio <span class="required">*</span></label>
                 <input type="date" name="start_date" class="form-input" 
-                       value="<?= htmlspecialchars($_POST['start_date'] ?? date('Y-m-d')) ?>" required>
+                       value="<?= $policy['start_date'] ?>" required>
             </div>
 
             <div class="form-group">
-                <label class="form-label">
-                    Fecha de Fin <span class="required">*</span>
-                </label>
+                <label class="form-label">Fecha de Fin <span class="required">*</span></label>
                 <input type="date" name="end_date" class="form-input" 
-                       value="<?= htmlspecialchars($_POST['end_date'] ?? date('Y-m-d', strtotime('+1 year'))) ?>" required>
+                       value="<?= $policy['end_date'] ?>" required>
             </div>
         </div>
 
         <div class="form-group full-width">
             <label class="form-label">Descripción Adicional</label>
-            <textarea name="description" class="form-textarea"><?= htmlspecialchars($_POST['description'] ?? '') ?></textarea>
+            <textarea name="description" class="form-textarea"><?= htmlspecialchars($policy['description'] ?? '') ?></textarea>
         </div>
 
         <div class="form-actions">
-            <a href="index.php" class="btn btn-secondary">← Cancelar</a>
-            <button type="submit" class="btn btn-primary">💾 Crear Póliza</button>
+            <a href="<?= url('policies/view/' . $id) ?>" class="btn btn-secondary">← Cancelar</a>
+            <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
         </div>
     </form>
 </div>
 
 <?php
 $content = ob_get_clean();
-require '../../views/layout.php';
+require __DIR__ . '/../../../views/layout.php';
 ?>

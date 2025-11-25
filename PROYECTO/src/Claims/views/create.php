@@ -1,20 +1,8 @@
 <?php
-require_once '../../config.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/helpers.php';
-require_once '../../src/Database.php';
-require_once '../../src/Claims/Claim.php';
-require_once '../../src/Claims/ClaimManager.php';
-require_once '../../src/Policies/PolicyManager.php';
-require_once '../../src/Categories/CategoryManager.php';
-require_once '../../src/Statuses/StatusManager.php';
-
-requireAuth();
-
-$policyManager = new PolicyManager();
-$categoryManager = new CategoryManager();
-$statusManager = new StatusManager();
-$claimManager = new ClaimManager();
+/**
+ * Claims - Create View
+ * URL: /claims/create
+ */
 
 $policies = $policyManager->getActivePolicies();
 $categories = $categoryManager->getAllCategories();
@@ -37,11 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!validateRequired($status)) $errors[] = 'El estado es requerido';
 
     if (empty($errors)) {
-        $claimId = rand(1000, 999999);
         $claimNumber = generateClaimNumber();
         
         $claimData = [
-            'id' => $claimId,
             'claim_number' => $claimNumber,
             'policy_id' => $policyId,
             'insured_name' => $insuredName,
@@ -56,9 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $claim = new Claim($claimData);
         
-        if ($claimManager->createClaim($claim)) {
+        $claimId = $claimManager->createClaim($claim);
+        if ($claimId) {
             setFlashMessage('success', 'Reclamo creado exitosamente');
-            redirectTo(BASE_URL . 'modules/claims/view.php?id=' . $claimId);
+            redirectTo(url('claims/view/' . $claimId));
         } else {
             $errors[] = 'Error al crear el reclamo';
         }
@@ -149,7 +136,7 @@ ob_start();
         </div>
     <?php endif; ?>
 
-    <form method="POST" action="">
+    <form method="POST" action="<?= url('claims/create') ?>">
         <div class="form-group">
             <label for="policy_id">Póliza (opcional)</label>
             <select id="policy_id" name="policy_id">
@@ -197,12 +184,12 @@ ob_start();
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">💾 Guardar Reclamo</button>
-            <a href="index.php" class="btn btn-secondary">❌ Cancelar</a>
+            <a href="<?= url('claims') ?>" class="btn btn-secondary">❌ Cancelar</a>
         </div>
     </form>
 </div>
 
 <?php
 $content = ob_get_clean();
-require '../../views/layout.php';
+require __DIR__ . '/../../../views/layout.php';
 ?>

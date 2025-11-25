@@ -10,14 +10,14 @@
     <?php if (isset($showNav) && $showNav): ?>
     <nav class="navbar">
         <div class="navbar-content">
-            <a href="<?= BASE_URL ?>dashboard.php" class="navbar-brand">🛡️ Sistema de Reclamos</a>
+            <a href="<?= url('dashboard.php') ?>" class="navbar-brand">🛡️ Sistema de Reclamos</a>
             <div class="navbar-menu">
-                <a href="<?= BASE_URL ?>dashboard.php">📊 Dashboard</a>
-                <a href="<?= BASE_URL ?>modules/claims/">📋 Reclamos</a>
-                <a href="<?= BASE_URL ?>modules/policies/">📄 Pólizas</a>
-                <a href="<?= BASE_URL ?>modules/reports/">📈 Reportes</a>
+                <a href="<?= url('dashboard.php') ?>">📊 Dashboard</a>
+                <a href="<?= url('claims') ?>">📋 Reclamos</a>
+                <a href="<?= url('policies') ?>">📄 Pólizas</a>
+                <a href="<?= url('reports') ?>">📈 Reportes</a>
                 <?php if (hasRole('admin') || hasRole('supervisor')): ?>
-                <a href="<?= BASE_URL ?>modules/users/">👥 Usuarios</a>
+                <a href="<?= url('users') ?>">👥 Usuarios</a>
                 <?php endif; ?>
             </div>
             <div class="navbar-user">

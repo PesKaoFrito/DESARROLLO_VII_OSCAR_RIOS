@@ -1,24 +1,31 @@
-# Activar el motor de reescritura de URLs
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /PROYECTO/
 
-# Establecer la base para las reescrituras al subdirectorio del proyecto
-# Ajusta esto según la ubicación de tu proyecto en el servidor
-RewriteBase /UTP/repositorio/PROYECTO/
+    # ---------------------------------------------------------
+    # 1) Block ONLY direct access to /src/* (not rewrites)
+    # ---------------------------------------------------------
+    # THE_REQUEST contiene algo como: "GET /PROYECTO/src/... HTTP/1.1"
+    RewriteCond %{THE_REQUEST} \s/+PROYECTO/src/ [NC]
+    RewriteRule ^src/ - [R=404,L]
 
-# Permitir el acceso directo a los archivos en el directorio public
-# Esto evita que las solicitudes a archivos CSS, JS, imágenes, etc., sean redirigidas
-RewriteRule ^public/ - [L]
+    # ---------------------------------------------------------
+    # 2) Permitir archivos y carpetas reales (css, js, imágenes, etc.)
+    # ---------------------------------------------------------
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
 
-# Las siguientes condiciones se aplican solo si el archivo o directorio solicitado no existe físicamente
-# Si el archivo solicitado no existe
-RewriteCond %{REQUEST_FILENAME} !-f
-# Si el directorio solicitado no existe
-RewriteCond %{REQUEST_FILENAME} !-d
+    # ---------------------------------------------------------
+    # 3) Rutas bonitas genéricas
+    # ---------------------------------------------------------
 
-# Redirigir todas las demás solicitudes a index.php
-# La bandera QSA añade cualquier cadena de consulta de la solicitud original
-# La bandera L indica que esta es la última regla a procesar
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+    # /projects  -> src/projects/index.php?action=list
+    RewriteRule ^([a-zA-Z0-9_-]+)/?$ src/$1/index.php?action=list [L,QSA]
 
-# Nota: Este archivo .htaccess debe estar en el directorio raíz de tu proyecto,
-# no en el directorio public o cualquier otro subdirectorio.
+    # /projects/create -> src/projects/index.php?action=create
+    RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ src/$1/index.php?action=$2 [L,QSA]
+
+    # /projects/edit/123 -> src/projects/index.php?action=edit&id=123
+    RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([0-9]+)/?$ src/$1/index.php?action=$2&id=$3 [L,QSA]
+</IfModule>

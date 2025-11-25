@@ -40,10 +40,16 @@ Sistema completo para la gestión y seguimiento de reclamos de seguros, desarrol
 
 ```
 PROYECTO/
-├── auth/                    # Sistema de autenticación
+├── .htaccess               # ✨ URLs amigables configuradas
+├── config.php              # Configuración global
+├── dashboard.php           # Dashboard principal
+├── index.php               # Punto de entrada
+│
+├── auth/                   # Sistema de autenticación
 │   ├── login.php
 │   ├── register.php
 │   └── logout.php
+│
 ├── database/
 │   ├── MigrationManager.php
 │   └── migrations/         # Migraciones SQL
@@ -59,16 +65,8 @@ PROYECTO/
 │       └── 010_update_claims_table.sql
 ├── includes/
 │   ├── auth.php           # Funciones de autenticación
-│   └── helpers.php        # Funciones auxiliares
-├── modules/
-│   ├── claims/           # Módulo de reclamos
-│   │   ├── index.php
-│   │   └── create.php
-│   ├── policies/         # Módulo de pólizas
-│   │   └── index.php
-│   ├── reports/          # Módulo de reportes
-│   │   └── index.php
-│   └── users/            # Gestión de usuarios
+│   └── helpers.php        # ✨ Funciones auxiliares + url()
+│
 ├── public/
 │   └── assets/
 │       ├── css/
@@ -76,21 +74,45 @@ PROYECTO/
 │       │   └── app.css
 │       └── js/
 │           └── main.js
-├── src/                  # Clases del modelo
+│
+├── src/                   # ⭐ Todos los módulos aquí
 │   ├── Database.php
+│   │
 │   ├── Categories/
 │   │   ├── Category.php
 │   │   └── CategoryManager.php
-│   ├── Claims/
+│   │
+│   ├── Claims/           # ✨ Módulo completo con routing
+│   │   ├── index.php     # Router
 │   │   ├── Claim.php
-│   │   └── ClaimManager.php
-│   ├── Policies/
+│   │   ├── ClaimManager.php
+│   │   └── views/
+│   │       ├── list.php
+│   │       ├── create.php
+│   │       ├── edit.php
+│   │       └── view.php
+│   │
+│   ├── Policies/         # ✨ Módulo completo con routing
+│   │   ├── index.php     # Router
 │   │   ├── Policy.php
-│   │   └── PolicyManager.php
+│   │   ├── PolicyManager.php
+│   │   └── views/
+│   │       ├── list.php
+│   │       ├── create.php
+│   │       ├── edit.php
+│   │       └── view.php
+│   │
+│   ├── Reports/          # ✨ Módulo completo con routing
+│   │   ├── index.php     # Router
+│   │   └── views/
+│   │       └── index.php
+│   │
 │   ├── Users/
 │   │   ├── User.php
 │   │   └── UserManager.php
+│   │
 │   └── ... (otros modelos)
+│
 ├── views/
 │   └── layout.php        # Template principal
 ├── .env                  # Configuración de entorno
@@ -190,6 +212,41 @@ PROYECTO/
    
    La primera vez redirigirá al registro. Crear una cuenta con email y contraseña.
 
+## ✨ URLs Amigables
+
+El sistema utiliza **mod_rewrite** para URLs limpias y profesionales:
+
+### Ejemplos de URLs:
+
+**Antes** (archivos PHP directos):
+```
+/PROYECTO/modules/claims/index.php
+/PROYECTO/modules/claims/create.php
+/PROYECTO/modules/policies/view.php?id=123
+```
+
+**Ahora** (URLs amigables):
+```
+/PROYECTO/claims              → Listado de reclamos
+/PROYECTO/claims/create       → Crear reclamo
+/PROYECTO/claims/view/123     → Ver detalle
+/PROYECTO/claims/edit/123     → Editar reclamo
+/PROYECTO/policies            → Listado de pólizas
+/PROYECTO/policies/create     → Crear póliza
+/PROYECTO/reports             → Dashboard de reportes
+```
+
+### Función Helper `url()`:
+
+```php
+// En cualquier vista PHP
+<a href="<?= url('claims') ?>">Ver Reclamos</a>
+<a href="<?= url('policies/create') ?>">Nueva Póliza</a>
+<a href="<?= url('claims/edit/' . $id) ?>">Editar</a>
+```
+
+📖 **Documentación completa**: Ver [URLS.md](URLS.md) y [MIGRACION.md](MIGRACION.md)
+
 ## 👥 Roles y Permisos
 
 | Rol | Permisos |
@@ -261,11 +318,20 @@ $db = Database::getInstance()->getConnection();
 
 ### Sistema de Rutas
 
-El proyecto usa rutas basadas en archivos:
-- `/modules/<modulo>/index.php` - Listado
-- `/modules/<modulo>/create.php` - Formulario de creación
-- `/modules/<modulo>/view.php?id=X` - Vista detallada
-- `/modules/<modulo>/edit.php?id=X` - Edición
+El proyecto usa **mod_rewrite + routing interno**:
+- Cada módulo en `src/` tiene un archivo `index.php` (router)
+- El router lee el parámetro `action` y carga la vista correspondiente
+- Las vistas están en subcarpeta `views/` de cada módulo
+- URLs limpias mediante `.htaccess`
+
+Ejemplo de flujo:
+```
+URL: /PROYECTO/claims/edit/123
+     ↓
+.htaccess reescribe a: src/Claims/index.php?action=edit&id=123
+     ↓
+Router lee action y carga: src/Claims/views/edit.php
+```
 
 ## 🐛 Resolución de Problemas
 

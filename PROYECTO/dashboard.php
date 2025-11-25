@@ -221,7 +221,7 @@ ob_start();
 <div class="section-card">
     <div class="section-header">
         <h2>📋 Reclamos Recientes</h2>
-        <a href="modules/claims/index.php" class="btn btn-primary">Ver Todos</a>
+        <a href="<?= url('claims') ?>" class="btn btn-primary">Ver Todos</a>
     </div>
     
     <?php if (empty($recentClaims)): ?>
@@ -259,26 +259,26 @@ ob_start();
 </div>
 
 <div class="quick-actions">
-    <a href="modules/claims/create.php" class="action-card">
+    <a href="<?= url('claims/create') ?>" class="action-card">
         <div class="action-icon">➕</div>
         <div class="action-title">Nuevo Reclamo</div>
         <div class="action-desc">Registrar un nuevo reclamo</div>
     </a>
     
-    <a href="modules/policies/index.php" class="action-card">
+    <a href="<?= url('policies') ?>" class="action-card">
         <div class="action-icon">📄</div>
         <div class="action-title">Pólizas</div>
         <div class="action-desc"><?= $stats['active_policies'] ?> pólizas activas</div>
     </a>
     
-    <a href="modules/reports/index.php" class="action-card">
+    <a href="<?= url('reports') ?>" class="action-card">
         <div class="action-icon">📊</div>
         <div class="action-title">Reportes</div>
         <div class="action-desc">Ver estadísticas y reportes</div>
     </a>
     
     <?php if (hasRole('admin') || hasRole('supervisor')): ?>
-    <a href="modules/users/index.php" class="action-card">
+    <a href="<?= url('users') ?>" class="action-card">
         <div class="action-icon">👥</div>
         <div class="action-title">Usuarios</div>
         <div class="action-desc">Gestionar usuarios del sistema</div>
