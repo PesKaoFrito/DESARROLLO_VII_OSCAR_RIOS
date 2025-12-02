@@ -7,29 +7,30 @@ Sistema completo para la gestión y seguimiento de reclamos de seguros, desarrol
 ### ✅ Funcionalidades Implementadas
 
 1. **Registro de Pólizas y Clientes**
+
    - CRUD completo de pólizas
    - Gestión de datos de asegurados
    - Búsqueda y filtros avanzados
    - Estadísticas de cobertura
-
 2. **Formulario de Reclamos**
+
    - Registro de nuevos reclamos
    - Asociación con pólizas existentes
    - Categorización por tipo de siniestro
    - Validación de datos completa
-
 3. **Seguimiento de Casos**
+
    - Dashboard con estadísticas en tiempo real
    - Filtros por estado (pendiente, aprobado, rechazado)
    - Búsqueda por múltiples criterios
    - Asignación de analistas y supervisores
-
 4. **Documentación de Evidencias**
+
    - Sistema de carga de archivos
    - Gestión de documentos por reclamo
    - Validación de tipos y tamaños
-
 5. **Reportes de Siniestralidad**
+
    - Estadísticas generales del sistema
    - Análisis por categoría
    - Tendencias por mes
@@ -135,51 +136,54 @@ PROYECTO/
 ### Pasos de Instalación
 
 1. **Clonar o descargar el proyecto**
+
    ```bash
    cd C:\laragon\www
    git clone <repository-url> PROYECTO
    ```
-
 2. **Configurar la base de datos**
-   
+
    Editar el archivo `.env`:
+
    ```env
    BASE_URL=http://localhost/PROYECTO/
-   
+
    DB_HOST=localhost
    DB_NAME=utp_proyecto_final
    DB_USER=root
    DB_PASS=
    ```
-
 3. **Crear la base de datos**
+
    ```sql
    CREATE DATABASE utp_proyecto_final CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
    ```
-
 4. **Ejecutar las migraciones**
-   
+
    Acceder a través del navegador:
+
    ```
    http://localhost/PROYECTO/run-migrations.php
    ```
-   
+
    O ejecutar desde línea de comandos:
+
    ```bash
    php run-migrations.php
    ```
-
 5. **Datos iniciales (Seed)**
-   
+
    Insertar roles básicos:
+
    ```sql
    INSERT INTO roles (name, description) VALUES
    ('admin', 'Administrador del sistema'),
    ('supervisor', 'Supervisor de reclamos'),
    ('analyst', 'Analista de reclamos');
    ```
-   
+
    Insertar categorías:
+
    ```sql
    INSERT INTO categories (name, description) VALUES
    ('Auto', 'Reclamos de vehículos'),
@@ -187,8 +191,9 @@ PROYECTO/
    ('Vida', 'Reclamos de seguros de vida'),
    ('Salud', 'Reclamos médicos');
    ```
-   
+
    Insertar estados:
+
    ```sql
    INSERT INTO statuses (name, description) VALUES
    ('pending', 'Pendiente de revisión'),
@@ -196,20 +201,21 @@ PROYECTO/
    ('approved', 'Aprobado'),
    ('rejected', 'Rechazado');
    ```
-   
+
    Insertar decisiones:
+
    ```sql
    INSERT INTO decisions (name, description) VALUES
    ('approved', 'Reclamo aprobado'),
    ('rejected', 'Reclamo rechazado'),
    ('partial', 'Aprobación parcial');
    ```
-
 6. **Acceder al sistema**
+
    ```
    http://localhost/PROYECTO/
    ```
-   
+
    La primera vez redirigirá al registro. Crear una cuenta con email y contraseña.
 
 ## ✨ URLs Amigables
@@ -219,6 +225,7 @@ El sistema utiliza **mod_rewrite** para URLs limpias y profesionales:
 ### Ejemplos de URLs:
 
 **Antes** (archivos PHP directos):
+
 ```
 /PROYECTO/modules/claims/index.php
 /PROYECTO/modules/claims/create.php
@@ -226,6 +233,7 @@ El sistema utiliza **mod_rewrite** para URLs limpias y profesionales:
 ```
 
 **Ahora** (URLs amigables):
+
 ```
 /PROYECTO/claims              → Listado de reclamos
 /PROYECTO/claims/create       → Crear reclamo
@@ -245,25 +253,25 @@ El sistema utiliza **mod_rewrite** para URLs limpias y profesionales:
 <a href="<?= url('claims/edit/' . $id) ?>">Editar</a>
 ```
 
-📖 **Documentación completa**: Ver [URLS.md](URLS.md) y [MIGRACION.md](MIGRACION.md)
-
 ## 👥 Roles y Permisos
 
-| Rol | Permisos |
-|-----|----------|
-| **Admin** | Acceso completo al sistema, gestión de usuarios |
+| Rol                  | Permisos                                                 |
+| -------------------- | -------------------------------------------------------- |
+| **Admin**      | Acceso completo al sistema, gestión de usuarios         |
 | **Supervisor** | Gestión de reclamos, asignación de analistas, reportes |
-| **Analyst** | Creación y seguimiento de reclamos, documentación |
+| **Analyst**    | Creación y seguimiento de reclamos, documentación      |
 
 ## 📊 Módulos del Sistema
 
 ### Dashboard
+
 - Estadísticas generales
 - Reclamos recientes
 - Accesos rápidos
 - Métricas en tiempo real
 
 ### Gestión de Reclamos
+
 - Listado con filtros
 - Creación de nuevos reclamos
 - Edición y seguimiento
@@ -271,12 +279,14 @@ El sistema utiliza **mod_rewrite** para URLs limpias y profesionales:
 - Carga de documentos
 
 ### Gestión de Pólizas
+
 - Registro de pólizas
 - Datos de asegurados
 - Vigencias y coberturas
 - Búsqueda avanzada
 
 ### Reportes
+
 - Estadísticas por categoría
 - Tendencias temporales
 - Métricas de pólizas
@@ -304,6 +314,7 @@ El sistema utiliza **mod_rewrite** para URLs limpias y profesionales:
 ### Estructura de Clases
 
 Cada entidad del sistema sigue el patrón:
+
 - **Clase Modelo**: Representa la entidad (ej. `Claim.php`)
 - **Clase Manager**: Gestiona operaciones CRUD (ej. `ClaimManager.php`)
 - **Vistas**: Archivos PHP que renderizan HTML
@@ -312,6 +323,7 @@ Cada entidad del sistema sigue el patrón:
 ### Conexión a Base de Datos
 
 Se utiliza el patrón Singleton para la clase `Database`:
+
 ```php
 $db = Database::getInstance()->getConnection();
 ```
@@ -319,12 +331,14 @@ $db = Database::getInstance()->getConnection();
 ### Sistema de Rutas
 
 El proyecto usa **mod_rewrite + routing interno**:
+
 - Cada módulo en `src/` tiene un archivo `index.php` (router)
 - El router lee el parámetro `action` y carga la vista correspondiente
 - Las vistas están en subcarpeta `views/` de cada módulo
 - URLs limpias mediante `.htaccess`
 
 Ejemplo de flujo:
+
 ```
 URL: /PROYECTO/claims/edit/123
      ↓
@@ -336,15 +350,18 @@ Router lee action y carga: src/Claims/views/edit.php
 ## 🐛 Resolución de Problemas
 
 ### Error: "Cannot connect to database"
+
 - Verificar credenciales en `.env`
 - Asegurar que MySQL esté ejecutándose
 - Comprobar que la base de datos existe
 
 ### Error: "Class not found"
+
 - Verificar includes en los archivos PHP
 - Comprobar rutas relativas correctas
 
 ### Estilos no se cargan
+
 - Verificar `BASE_URL` y `PUBLIC_URL` en `config.php`
 - Comprobar que mod_rewrite esté habilitado
 
@@ -361,7 +378,7 @@ Router lee action y carga: src/Claims/views/edit.php
 
 ## 👨‍💻 Autor
 
-**Oscar Ríos**  
+**Oscar Ríos**
 Desarrollo VII - Universidad Tecnológica de Panamá
 
 ## 📄 Licencia
@@ -370,5 +387,5 @@ Este proyecto es parte de un trabajo académico para el curso de Desarrollo VII.
 
 ---
 
-**Fecha de Entrega:** Noviembre 2025  
+**Fecha de Entrega:** Noviembre 2025
 **Versión:** 1.0.0
