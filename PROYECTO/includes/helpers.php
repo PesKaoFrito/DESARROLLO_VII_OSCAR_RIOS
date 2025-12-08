@@ -42,8 +42,28 @@ function getFlashMessage($type) {
 }
 
 function redirectTo($url) {
+    // Si la URL no comienza con http, agregar BASE_URL
+    if (!preg_match('/^https?:\/\//', $url)) {
+        $url = url($url);
+    }
     header('Location: ' . $url);
     exit;
+}
+
+function url($path = '') {
+    // Remover / inicial si existe
+    $path = ltrim($path, '/');
+    // Asegurar que BASE_URL termine con /
+    $base = rtrim(BASE_URL, '/');
+    return $path ? $base . '/' . $path : $base;
+}
+
+function asset($path) {
+    // Remover / inicial si existe
+    $path = ltrim($path, '/');
+    // Asegurar que PUBLIC_URL termine con /
+    $public = rtrim(PUBLIC_URL, '/');
+    return $public . '/' . $path;
 }
 
 function formatMoney($amount) {

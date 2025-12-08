@@ -20,10 +20,17 @@ function requireAuth() {
     }
 }
 
-// Función para requerir un rol específico
-function requireRole($role) {
+// Función para requerir un rol específico (acepta string o array)
+function requireRole($roles) {
     requireAuth();
-    if (!hasRole($role)) {
+    
+    // Convertir a array si es string
+    $rolesArray = is_array($roles) ? $roles : [$roles];
+    
+    // Verificar si el usuario tiene alguno de los roles permitidos
+    $hasPermission = in_array($_SESSION['user_role'], $rolesArray);
+    
+    if (!$hasPermission) {
         $_SESSION['error'] = 'No tienes permisos para acceder a esta página';
         header('Location: ' . BASE_URL . 'dashboard.php');
         exit;
@@ -53,6 +60,19 @@ function login($user) {
 
 // Función para hacer logout
 function logout() {
-    session_unset();
+    // Asegurar que la sesión está iniciada
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    // Limpiar todas las variables de sesión
+    $_SESSION = [];
+    
+    // Destruir la cookie de sesión
+    if (isset($_COOKIE[session_name()])) {
+        setcookie(session_name(), '', time() - 3600, '/');
+    }
+    
+    // Destruir la sesión
     session_destroy();
 }

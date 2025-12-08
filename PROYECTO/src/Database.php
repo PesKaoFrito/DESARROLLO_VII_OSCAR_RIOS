@@ -1,4 +1,9 @@
 <?php
+// Cargar configuración si no está cargada
+if (!defined('DB_HOST')) {
+    require_once __DIR__ . '/../config.php';
+}
+
 class Database {
     // Instancia única de la clase (patrón Singleton)
     private static $instance = null;

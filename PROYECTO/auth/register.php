@@ -1,13 +1,13 @@
 <?php
-require_once '../config.php';
-require_once '../includes/auth.php';
-require_once '../includes/helpers.php';
-require_once '../src/Database.php';
-require_once '../src/Users/User.php';
-require_once '../src/Users/UserManager.php';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/helpers.php';
+require_once __DIR__ . '/../src/Database.php';
+require_once __DIR__ . '/../src/Users/User.php';
+require_once __DIR__ . '/../src/Users/UserManager.php';
 
 if (isAuthenticated()) {
-    redirectTo(BASE_URL . 'dashboard.php');
+    redirectTo('dashboard');
 }
 
 $errors = [];
@@ -77,9 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         .register-container {
             background: white;

@@ -4,8 +4,8 @@
  * Ejecutar después de las migraciones para poblar la base de datos con datos iniciales
  */
 
-require_once 'config.php';
-require_once 'src/Database.php';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../src/Database.php';
 
 try {
     $db = Database::getInstance()->getConnection();
@@ -29,15 +29,15 @@ try {
     // 2. Insertar Categorías
     echo "📝 Insertando categorías...\n";
     $categories = [
-        ['Auto', 'Reclamos relacionados con seguros de vehículos'],
-        ['Hogar', 'Reclamos de seguros de propiedad y hogar'],
-        ['Vida', 'Reclamos de seguros de vida'],
-        ['Salud', 'Reclamos médicos y de salud'],
-        ['Robo', 'Reclamos por robo o hurto'],
-        ['Incendio', 'Reclamos por daños causados por fuego']
+        ['Auto', 'Reclamos relacionados con seguros de vehículos', 'accidentes'],
+        ['Hogar', 'Reclamos de seguros de propiedad y hogar', 'hogar'],
+        ['Vida', 'Reclamos de seguros de vida', 'vida'],
+        ['Salud', 'Reclamos médicos y de salud', 'salud'],
+        ['Robo', 'Reclamos por robo o hurto', 'accidentes'],
+        ['Incendio', 'Reclamos por daños causados por fuego', 'hogar']
     ];
     
-    $stmt = $db->prepare("INSERT IGNORE INTO categories (name, description) VALUES (?, ?)");
+    $stmt = $db->prepare("INSERT IGNORE INTO categories (name, description, policy_type) VALUES (?, ?, ?)");
     foreach ($categories as $category) {
         $stmt->execute($category);
     }
@@ -74,15 +74,31 @@ try {
     }
     echo "✓ Decisiones insertadas\n\n";
     
-    // 5. Insertar Usuario Administrador por defecto
-    echo "📝 Creando usuario administrador...\n";
-    $adminPassword = password_hash('admin123', PASSWORD_DEFAULT);
+    // 5. Insertar Usuarios por defecto
+    echo "📝 Creando usuarios del sistema...\n";
+    $defaultPassword = password_hash('password123', PASSWORD_DEFAULT);
+    
+    $users = [
+        [1, 'Administrador Sistema', 'admin@sistema.com', password_hash('admin123', PASSWORD_DEFAULT), 'admin'],
+        [2, 'Roberto Supervisor', 'roberto.supervisor@sistema.com', $defaultPassword, 'supervisor'],
+        [3, 'Laura Supervisor', 'laura.supervisor@sistema.com', $defaultPassword, 'supervisor'],
+        [4, 'Carlos Analista', 'carlos.analista@sistema.com', $defaultPassword, 'analyst'],
+        [5, 'María Analista', 'maria.analista@sistema.com', $defaultPassword, 'analyst'],
+        [6, 'José Analista', 'jose.analista@sistema.com', $defaultPassword, 'analyst'],
+        [7, 'Ana Analista', 'ana.analista@sistema.com', $defaultPassword, 'analyst']
+    ];
+    
     $stmt = $db->prepare("INSERT IGNORE INTO users (id, name, email, password_hash, role) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([999, 'Administrador', 'admin@sistema.com', $adminPassword, 'admin']);
-    echo "✓ Usuario admin creado\n";
-    echo "   Email: admin@sistema.com\n";
-    echo "   Password: admin123\n";
-    echo "   ⚠️  Cambiar contraseña después del primer login\n\n";
+    foreach ($users as $user) {
+        $stmt->execute($user);
+    }
+    
+    echo "✓ Usuarios creados:\n";
+    echo "   Admin: admin@sistema.com / admin123\n";
+    echo "   Supervisores: roberto.supervisor@sistema.com, laura.supervisor@sistema.com\n";
+    echo "   Analistas: carlos.analista@sistema.com, maria.analista@sistema.com, jose.analista@sistema.com, ana.analista@sistema.com\n";
+    echo "   Password para supervisores y analistas: password123\n";
+    echo "   ⚠️  Cambiar contraseñas después del primer login\n\n";
     
     // 6. Insertar Pólizas de Ejemplo (opcional)
     echo "📝 Insertando pólizas de ejemplo...\n";
@@ -93,7 +109,7 @@ try {
             'juan.perez@email.com',
             '6000-0000',
             'Calle 50, Ciudad de Panamá',
-            'Auto',
+            'accidentes',
             50000.00,
             1200.00,
             '2025-01-01',
@@ -106,11 +122,37 @@ try {
             'maria.gonzalez@email.com',
             '6100-1111',
             'Avenida Balboa, Panamá',
-            'Hogar',
+            'hogar',
             75000.00,
             850.00,
             '2025-01-15',
             '2026-01-15',
+            'active'
+        ],
+        [
+            'POL-2025-00003',
+            'Carlos Rodríguez Soto',
+            'carlos.rodriguez@email.com',
+            '6200-2222',
+            'Vía España, Panamá',
+            'salud',
+            100000.00,
+            2500.00,
+            '2025-02-01',
+            '2026-02-01',
+            'active'
+        ],
+        [
+            'POL-2025-00004',
+            'Ana Martínez Cruz',
+            'ana.martinez@email.com',
+            '6300-3333',
+            'Costa del Este, Panamá',
+            'vida',
+            200000.00,
+            3000.00,
+            '2025-03-01',
+            '2026-03-01',
             'active'
         ]
     ];

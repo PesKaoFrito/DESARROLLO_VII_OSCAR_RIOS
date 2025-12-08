@@ -54,8 +54,9 @@ class PolicyManager {
     }
 
     public function updatePolicy($id, $data) {
-        $stmt = $this->db->prepare("UPDATE policies SET insured_name = ?, insured_email = ?, insured_phone = ?, insured_address = ?, policy_type = ?, coverage_amount = ?, premium_amount = ?, start_date = ?, end_date = ?, status = ? WHERE id = ?");
+        $stmt = $this->db->prepare("UPDATE policies SET policy_number = ?, insured_name = ?, insured_email = ?, insured_phone = ?, insured_address = ?, policy_type = ?, coverage_amount = ?, premium_amount = ?, start_date = ?, end_date = ?, status = ? WHERE id = ?");
         return $stmt->execute([
+            $data['policy_number'],
             $data['insured_name'],
             $data['insured_email'],
             $data['insured_phone'],
