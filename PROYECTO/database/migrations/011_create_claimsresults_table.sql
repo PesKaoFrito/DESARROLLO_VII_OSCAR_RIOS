@@ -1,5 +1,5 @@
 CREATE TABLE claims_results(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     claim_id INT NOT NULL,
     decision VARCHAR(100) NOT NULL,
     comments TEXT,

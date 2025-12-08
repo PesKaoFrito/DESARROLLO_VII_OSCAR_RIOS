@@ -30,14 +30,17 @@ class UserManager {
     }
     
     public function createUser($user) {
-        $stmt = $this->db->prepare("INSERT INTO users (id, name, email, password_hash, role) VALUES (?, ?, ?, ?, ?)");
-        return $stmt->execute([
-            $user->id,
+        $stmt = $this->db->prepare("INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)");
+        
+        if ($stmt->execute([
             $user->name, 
             $user->email, 
             password_hash($user->passwordHash, PASSWORD_DEFAULT), 
             $user->role
-        ]);
+        ])) {
+            return $this->db->lastInsertId();
+        }
+        return false;
     }
 
     public function updateUser($id, $data) {

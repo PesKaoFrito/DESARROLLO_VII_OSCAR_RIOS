@@ -129,6 +129,7 @@ ob_start();
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="card">
     <div class="card-header">
         <h3><i class="fas fa-file-alt"></i> Reclamos Recientes</h3>
@@ -183,6 +184,74 @@ ob_start();
             </div>
         <?php endif; ?>
     </div>
+=======
+<div class="section-card">
+    <div class="section-header">
+        <h2>📋 Reclamos Recientes</h2>
+        <a href="<?= url('claims') ?>" class="btn btn-primary">Ver Todos</a>
+    </div>
+    
+    <?php if (empty($recentClaims)): ?>
+        <p>No hay reclamos registrados aún.</p>
+    <?php else: ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Asegurado</th>
+                    <th>Categoría</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($recentClaims as $claim): ?>
+                <tr>
+                    <td><strong><?= htmlspecialchars($claim['claim_number']) ?></strong></td>
+                    <td><?= htmlspecialchars($claim['insured_name']) ?></td>
+                    <td><?= htmlspecialchars($claim['category']) ?></td>
+                    <td><?= formatMoney($claim['amount']) ?></td>
+                    <td>
+                        <span class="badge badge-<?= $claim['status'] ?>">
+                            <?= ucfirst($claim['status']) ?>
+                        </span>
+                    </td>
+                    <td><?= formatDate($claim['created_at']) ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</div>
+
+<div class="quick-actions">
+    <a href="<?= url('claims/create') ?>" class="action-card">
+        <div class="action-icon">➕</div>
+        <div class="action-title">Nuevo Reclamo</div>
+        <div class="action-desc">Registrar un nuevo reclamo</div>
+    </a>
+    
+    <a href="<?= url('policies') ?>" class="action-card">
+        <div class="action-icon">📄</div>
+        <div class="action-title">Pólizas</div>
+        <div class="action-desc"><?= $stats['active_policies'] ?> pólizas activas</div>
+    </a>
+    
+    <a href="<?= url('reports') ?>" class="action-card">
+        <div class="action-icon">📊</div>
+        <div class="action-title">Reportes</div>
+        <div class="action-desc">Ver estadísticas y reportes</div>
+    </a>
+    
+    <?php if (hasRole('admin') || hasRole('supervisor')): ?>
+    <a href="<?= url('users') ?>" class="action-card">
+        <div class="action-icon">👥</div>
+        <div class="action-title">Usuarios</div>
+        <div class="action-desc">Gestionar usuarios del sistema</div>
+    </a>
+    <?php endif; ?>
+>>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
 </div>
 
 <?php

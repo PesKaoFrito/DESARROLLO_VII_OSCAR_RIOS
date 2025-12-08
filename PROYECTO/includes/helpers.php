@@ -85,3 +85,32 @@ function generateClaimNumber() {
 function generatePolicyNumber() {
     return 'POL-' . date('Y') . '-' . str_pad(rand(1, 99999), 5, '0', STR_PAD_LEFT);
 }
+
+/**
+ * Genera una URL bonita según el .htaccess configurado
+ * Ejemplos:
+ *   url('claims') -> BASE_URL/claims
+ *   url('claims/create') -> BASE_URL/claims/create
+ *   url('claims/edit/123') -> BASE_URL/claims/edit/123
+ */
+function url($path = '') {
+    $baseUrl = rtrim(BASE_URL, '/');
+    $path = ltrim($path, '/');
+    return $baseUrl . '/' . $path;
+}
+
+/**
+ * Obtiene la URL actual
+ */
+function currentUrl() {
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+    return $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+}
+
+/**
+ * Verifica si la URL actual coincide con un patrón
+ */
+function isCurrentUrl($pattern) {
+    $current = $_SERVER['REQUEST_URI'];
+    return strpos($current, $pattern) !== false;
+}

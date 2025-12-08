@@ -40,11 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($userManager->getUserByEmail($email)) {
             $errors[] = 'El email ya está registrado';
         } else {
-            // Generar ID único
-            $userId = rand(1000, 999999);
-            
             $userData = [
-                'id' => $userId,
                 'name' => $name,
                 'email' => $email,
                 'password_hash' => $password,

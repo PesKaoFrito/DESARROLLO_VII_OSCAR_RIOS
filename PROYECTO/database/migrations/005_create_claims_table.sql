@@ -1,9 +1,14 @@
 CREATE TABLE claims(
+<<<<<<< HEAD
     id INT AUTO_INCREMENT PRIMARY KEY,
     claim_number VARCHAR(100) NOT NULL UNIQUE,
     policy_id INT NOT NULL,
     category_id INT NOT NULL,
     status_id INT NOT NULL,
+=======
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    claim_number VARCHAR(100) NOT NULL,
+>>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
     insured_name VARCHAR(100) NOT NULL,
     insured_phone VARCHAR(20),
     insured_email VARCHAR(100),
