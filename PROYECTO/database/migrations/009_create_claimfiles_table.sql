@@ -1,5 +1,5 @@
 CREATE TABLE claim_files(
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     claim_id INT NOT NULL,
     filename VARCHAR(255) NOT NULL,
     path VARCHAR(255) NOT NULL,
