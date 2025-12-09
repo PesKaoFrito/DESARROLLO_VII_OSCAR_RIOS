@@ -1,6 +1,8 @@
 <?php
-// Iniciar sesión
-session_start();
+// Iniciar sesión si no está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Función para verificar si el usuario está autenticado
 function isAuthenticated() {

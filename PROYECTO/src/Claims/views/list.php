@@ -191,7 +191,7 @@ ob_start();
                     <td><?= formatMoney($claim['amount']) ?></td>
                     <td>
                         <span class="badge badge-<?= $claim['status'] ?>">
-                            <?= ucfirst($claim['status']) ?>
+                            <?= translateStatus($claim['status']) ?>
                         </span>
                     </td>
                     <td>ID: <?= $claim['analyst_id'] ?></td>

@@ -1,5 +1,8 @@
 <?php
-session_start();
+// Iniciar sesión si no está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Cargar variables de entorno desde .env
 function loadEnv($path) {
@@ -9,23 +12,6 @@ function loadEnv($path) {
     
     $lines = file($path, FILE_IGNORE_NEW_LINES);
     foreach ($lines as $line) {
-<<<<<<< HEAD
-        // Skip empty lines
-        if (empty(trim($line))) {
-            continue;
-        }
-        
-        // Skip comments
-        if (strpos(trim($line), '#') === 0) {
-            continue;
-        }
-
-        // Check if line contains '='
-        if (strpos($line, '=') === false) {
-            continue;
-        }
-
-=======
         // Ignorar comentarios y líneas vacías
         $line = trim($line);
         if (empty($line) || strpos($line, '#') === 0) {
@@ -38,26 +24,15 @@ function loadEnv($path) {
         }
         
         // Parsear línea
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
         list($name, $value) = explode('=', $line, 2);
         $name = trim($name);
         $value = trim($value);
         
-<<<<<<< HEAD
-        // Remove quotes if present
-        if (strlen($value) >= 2 && $value[0] === '"' && $value[strlen($value)-1] === '"') {
-            $value = substr($value, 1, -1);
-        }
-        
-        if (!array_key_exists($name, $_SERVER) && !array_key_exists($name, $_ENV)) {
-            putenv(sprintf('%s=%s', $name, $value));
-=======
         // Remover comillas si existen
         $value = trim($value, '"\'');
 
         // Establecer variable de entorno
         if (!empty($name)) {
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
             $_ENV[$name] = $value;
             putenv("$name=$value");
         }
@@ -67,24 +42,15 @@ function loadEnv($path) {
 // Cargar el archivo .env
 loadEnv(__DIR__ . '/.env');
 
-<<<<<<< HEAD
-// Define constants using environment variables
-define('BASE_URL', getenv('APP_URL') ?: 'http://localhost/PROYECTO');
-define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-define('DB_NAME', getenv('DB_DATABASE') ?: 'proyecto_reclamos');
-define('DB_USER', getenv('DB_USERNAME') ?: 'root');
-define('DB_PASS', getenv('DB_PASSWORD') ?: '');
-=======
 // Configuración general
-define('BASE_URL', $_ENV['BASE_URL'] ?? 'http://localhost/PROYECTO/');
+define('BASE_URL', $_ENV['APP_URL'] ?? $_ENV['BASE_URL'] ?? 'http://localhost/PROYECTO/');
 define('PUBLIC_URL', BASE_URL . 'public');
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
 
 // Configuración de la base de datos usando variables de entorno
 define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');
-define('DB_NAME', $_ENV['DB_NAME'] ?? 'utp_proyecto_final');
-define('DB_USER', $_ENV['DB_USER'] ?? 'root');
-define('DB_PASS', $_ENV['DB_PASS'] ?? '');
+define('DB_NAME', $_ENV['DB_DATABASE'] ?? $_ENV['DB_NAME'] ?? 'proyecto_reclamos');
+define('DB_USER', $_ENV['DB_USERNAME'] ?? $_ENV['DB_USER'] ?? 'root');
+define('DB_PASS', $_ENV['DB_PASSWORD'] ?? $_ENV['DB_PASS'] ?? '');
 define('DB_PORT', $_ENV['DB_PORT'] ?? '3306');
 
 // Cargar clases necesarias

@@ -28,7 +28,6 @@ class ClaimManager {
     }
     
     // Método para crear un nuevo reclamo
-<<<<<<< HEAD
     public function createClaim($data) {
         // Generar número de reclamo único
         $claimNumber = 'CLM-' . date('Y') . '-' . str_pad(rand(1, 99999), 5, '0', STR_PAD_LEFT);
@@ -69,24 +68,6 @@ class ClaimManager {
         ]);
         
         return $result ? $this->db->lastInsertId() : false;
-=======
-    public function createClaim($claim) {
-        $stmt = $this->db->prepare("INSERT INTO claims (claim_number, insured_name, category, amount, status, analyst_id, supervisor_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $payload = [
-            'claim_number' => $claim->claimNumber,
-            'insured_name' => $claim->insuredName,
-            'category' => $claim->category,
-            'amount' => $claim->amount,
-            'status' => $claim->status,
-            'analyst_id' => $claim->analystId,
-            'supervisor_id' => $claim->supervisorId
-        ];
-        
-        if ($stmt->execute(array_values($payload))) {
-            return $this->db->lastInsertId();
-        }
-        return false;
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
     }
 
     // Método para cambiar el estado de un reclamo (activo/inactivo)

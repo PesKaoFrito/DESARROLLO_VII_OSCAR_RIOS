@@ -62,7 +62,7 @@ ob_start();
                 <label><i class="fas fa-user-tag"></i> Rol</label>
                 <value>
                     <span class="badge badge-<?= $user['role'] === 'admin' ? 'danger' : ($user['role'] === 'supervisor' ? 'warning' : 'info') ?>">
-                        <?= ucfirst($user['role']) ?>
+                        <?= translateRole($user['role']) ?>
                     </span>
                 </value>
             </div>

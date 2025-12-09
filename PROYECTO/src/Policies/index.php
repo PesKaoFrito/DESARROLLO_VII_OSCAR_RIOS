@@ -1,26 +1,12 @@
 <?php
-<<<<<<< HEAD
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../../includes/auth.php';
 require_once __DIR__ . '/../../includes/helpers.php';
 require_once __DIR__ . '/../../src/Database.php';
-=======
-/**
- * Policies Module - Router
- * Maneja las rutas bonitas: /policies, /policies/create, /policies/edit/123, etc.
- */
-
-require_once __DIR__ . '/../../config.php';
-require_once __DIR__ . '/../../includes/auth.php';
-require_once __DIR__ . '/../../includes/helpers.php';
-require_once __DIR__ . '/../Database.php';
-require_once __DIR__ . '/Policy.php';
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
 require_once __DIR__ . '/PolicyManager.php';
 
 requireAuth();
 
-<<<<<<< HEAD
 $policyManager = new PolicyManager();
 
 // Filtros
@@ -55,34 +41,41 @@ ob_start();
     </a>
 </div>
 
-<div class="card">
+<div class="card" style="margin-top: 2rem;">
     <div class="card-header">
         <h3><i class="fas fa-filter"></i> Filtros de Búsqueda</h3>
     </div>
     <div class="card-body">
         <form method="GET" class="filters-form">
-            <div class="filter-group">
-                <label for="search">Buscar</label>
-                <input type="text" id="search" name="search" placeholder="Número de póliza, titular..." value="<?= htmlspecialchars($searchTerm) ?>">
-            </div>
-            <div class="filter-group">
-                <label for="status">Estado</label>
-                <select id="status" name="status">
-                    <option value="">Todos</option>
-                    <option value="active" <?= $statusFilter === 'active' ? 'selected' : '' ?>>Activa</option>
-                    <option value="expired" <?= $statusFilter === 'expired' ? 'selected' : '' ?>>Expirada</option>
-                    <option value="cancelled" <?= $statusFilter === 'cancelled' ? 'selected' : '' ?>>Cancelada</option>
-                </select>
-            </div>
-            <div class="filter-group" style="display: flex; align-items: flex-end; gap: 0.5rem;">
-                <button type="submit" class="btn btn-primary" style="flex: 1;">
-                    <i class="fas fa-search"></i> Filtrar
-                </button>
-                <?php if ($searchTerm || $statusFilter): ?>
-                <a href="<?= url('policies') ?>" class="btn btn-secondary" style="flex: 1;">
-                    <i class="fas fa-redo"></i> Limpiar
-                </a>
-                <?php endif; ?>
+            <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                    <label for="search">Buscar Póliza</label>
+                    <input type="text" 
+                           id="search" 
+                           name="search" 
+                           class="form-control"
+                           placeholder="Número de póliza, titular..." 
+                           value="<?= htmlspecialchars($searchTerm) ?>">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="status">Filtrar por Estado</label>
+                    <select id="status" name="status" class="form-control">
+                        <option value="">Todos los estados</option>
+                        <option value="active" <?= $statusFilter === 'active' ? 'selected' : '' ?>>Activa</option>
+                        <option value="expired" <?= $statusFilter === 'expired' ? 'selected' : '' ?>>Expirada</option>
+                        <option value="cancelled" <?= $statusFilter === 'cancelled' ? 'selected' : '' ?>>Cancelada</option>
+                    </select>
+                </div>
+                <div class="form-group" style="display: flex; align-items: flex-end; gap: 0.5rem;">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                    <?php if ($searchTerm || $statusFilter): ?>
+                    <a href="<?= url('policies') ?>" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Limpiar
+                    </a>
+                    <?php endif; ?>
+                </div>
             </div>
         </form>
     </div>
@@ -132,7 +125,7 @@ ob_start();
                             <td><?= formatMoney($policy['premium_amount']) ?></td>
                             <td>
                                 <span class="badge badge-<?= $policy['status'] ?>">
-                                    <?= ucfirst($policy['status']) ?>
+                                    <?= translateStatus($policy['status']) ?>
                                 </span>
                             </td>
                             <td><?= formatDate($policy['end_date']) ?></td>
@@ -159,55 +152,3 @@ ob_start();
 $content = ob_get_clean();
 require __DIR__ . '/../../views/layout.php';
 ?>
-=======
-// Obtener la acción de la URL (list, create, edit, view)
-$action = $_GET['action'] ?? 'list';
-$id = $_GET['id'] ?? null;
-
-$policyManager = new PolicyManager();
-
-// Enrutar según la acción
-switch ($action) {
-    case 'list':
-        require __DIR__ . '/views/list.php';
-        break;
-    
-    case 'create':
-        require __DIR__ . '/views/create.php';
-        break;
-    
-    case 'edit':
-        if (!$id) {
-            setFlashMessage('error', 'ID de póliza no especificado');
-            redirectTo(BASE_URL . 'policies');
-        }
-        require __DIR__ . '/views/edit.php';
-        break;
-    
-    case 'view':
-        if (!$id) {
-            setFlashMessage('error', 'ID de póliza no especificado');
-            redirectTo(BASE_URL . 'policies');
-        }
-        require __DIR__ . '/views/view.php';
-        break;
-    
-    case 'delete':
-        if (!$id) {
-            setFlashMessage('error', 'ID de póliza no especificado');
-            redirectTo(BASE_URL . 'policies');
-        }
-        if ($policyManager->deletePolicy($id)) {
-            setFlashMessage('success', 'Póliza eliminada exitosamente');
-        } else {
-            setFlashMessage('error', 'Error al eliminar la póliza');
-        }
-        redirectTo(BASE_URL . 'policies');
-        break;
-    
-    default:
-        setFlashMessage('error', 'Acción no válida');
-        redirectTo(BASE_URL . 'policies');
-        break;
-}
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15

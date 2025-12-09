@@ -7,7 +7,7 @@ class UserManager {
     }
 
     public function getAllUsers() {
-        $stmt = $this->db->query("SELECT id, name, email, role, created_at, updated_at FROM users ORDER BY created_at DESC");
+        $stmt = $this->db->query("SELECT id, name, email, role, created_at, updated_at FROM users ORDER BY id ASC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -29,14 +29,14 @@ class UserManager {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function createUser($user) {
+    public function createUser($data) {
         $stmt = $this->db->prepare("INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)");
         
         if ($stmt->execute([
-            $user->name, 
-            $user->email, 
-            password_hash($user->passwordHash, PASSWORD_DEFAULT), 
-            $user->role
+            $data['name'], 
+            $data['email'], 
+            $data['password_hash'], 
+            $data['role']
         ])) {
             return $this->db->lastInsertId();
         }

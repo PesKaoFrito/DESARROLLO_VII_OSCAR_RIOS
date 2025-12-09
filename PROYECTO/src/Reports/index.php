@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../../includes/auth.php';
 require_once __DIR__ . '/../../includes/helpers.php';
@@ -31,7 +30,13 @@ ob_start();
     <a href="policies-report.php" class="action-card">
         <i class="fas fa-file-contract"></i>
         <h3>Reporte de Pólizas</h3>
-        <p>Estado y métricas de pólizas</p>
+        <p>Estado y análisis de pólizas</p>
+    </a>
+    
+    <a href="users-report.php" class="action-card">
+        <i class="fas fa-users"></i>
+        <h3>Reporte de Usuarios</h3>
+        <p>Actividad y gestión de usuarios</p>
     </a>
     
     <a href="financial-report.php" class="action-card">
@@ -39,67 +44,57 @@ ob_start();
         <h3>Reporte Financiero</h3>
         <p>Análisis de montos y pagos</p>
     </a>
-    
-    <a href="performance-report.php" class="action-card">
-        <i class="fas fa-chart-line"></i>
-        <h3>Rendimiento</h3>
-        <p>Métricas de desempeño del equipo</p>
-    </a>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        <h3><i class="fas fa-info-circle"></i> Información</h3>
+<!-- Estadísticas Generales -->
+<div class="stats-grid" style="margin-top: 2rem;">
+    <?php
+    $reportManager = new ReportManager();
+    $stats = $reportManager->getGeneralStats();
+    ?>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="stat-info">
+            <h3><?= $stats['total_claims'] ?? 0 ?></h3>
+            <p>Total Reclamos</p>
+        </div>
     </div>
-    <div class="card-body">
-        <p>Los reportes están en desarrollo. Selecciona un tipo de reporte para comenzar el análisis.</p>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-info">
+            <h3><?= $stats['pending_claims'] ?? 0 ?></h3>
+            <p>Reclamos Pendientes</p>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-info">
+            <h3><?= $stats['approved_claims'] ?? 0 ?></h3>
+            <p>Reclamos Aprobados</p>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+            <i class="fas fa-file-contract"></i>
+        </div>
+        <div class="stat-info">
+            <h3><?= $stats['total_policies'] ?? 0 ?></h3>
+            <p>Pólizas Activas</p>
+        </div>
     </div>
 </div>
 
 <?php
 $content = ob_get_clean();
-require __DIR__ . '/../../views/layout.php';
+require_once __DIR__ . '/../../views/layout.php';
 ?>
-=======
-/**
- * Reports Module - Router
- * Maneja las rutas bonitas: /reports, /reports/claims, /reports/policies, etc.
- */
-
-require_once __DIR__ . '/../../config.php';
-require_once __DIR__ . '/../../includes/auth.php';
-require_once __DIR__ . '/../../includes/helpers.php';
-require_once __DIR__ . '/../Database.php';
-require_once __DIR__ . '/../Claims/ClaimManager.php';
-require_once __DIR__ . '/../Policies/PolicyManager.php';
-
-requireAuth();
-
-// Obtener la acción de la URL (index es el dashboard principal)
-$action = $_GET['action'] ?? 'index';
-
-// Enrutar según la acción
-switch ($action) {
-    case 'index':
-    case 'list':
-        require __DIR__ . '/views/index.php';
-        break;
-    
-    case 'claims':
-        require __DIR__ . '/views/claims.php';
-        break;
-    
-    case 'policies':
-        require __DIR__ . '/views/policies.php';
-        break;
-    
-    case 'export':
-        require __DIR__ . '/views/export.php';
-        break;
-    
-    default:
-        setFlashMessage('error', 'Reporte no encontrado');
-        redirectTo(BASE_URL . 'reports');
-        break;
-}
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15

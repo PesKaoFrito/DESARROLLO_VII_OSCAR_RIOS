@@ -50,20 +50,25 @@ function redirectTo($url) {
     exit;
 }
 
+/**
+ * Genera una URL bonita según el .htaccess configurado
+ * Ejemplos:
+ *   url('claims') -> BASE_URL/claims
+ *   url('claims/create') -> BASE_URL/claims/create
+ *   url('claims/edit/123') -> BASE_URL/claims/edit/123
+ */
 function url($path = '') {
-    // Remover / inicial si existe
+    $baseUrl = rtrim(BASE_URL, '/');
     $path = ltrim($path, '/');
-    // Asegurar que BASE_URL termine con /
-    $base = rtrim(BASE_URL, '/');
-    return $path ? $base . '/' . $path : $base;
+    return $baseUrl . '/' . $path;
 }
 
 function asset($path) {
     // Remover / inicial si existe
     $path = ltrim($path, '/');
-    // Asegurar que PUBLIC_URL termine con /
-    $public = rtrim(PUBLIC_URL, '/');
-    return $public . '/' . $path;
+    // Construir ruta desde BASE_URL
+    $base = rtrim(BASE_URL, '/');
+    return $base . '/public/' . $path;
 }
 
 function formatMoney($amount) {
@@ -87,19 +92,6 @@ function generatePolicyNumber() {
 }
 
 /**
- * Genera una URL bonita según el .htaccess configurado
- * Ejemplos:
- *   url('claims') -> BASE_URL/claims
- *   url('claims/create') -> BASE_URL/claims/create
- *   url('claims/edit/123') -> BASE_URL/claims/edit/123
- */
-function url($path = '') {
-    $baseUrl = rtrim(BASE_URL, '/');
-    $path = ltrim($path, '/');
-    return $baseUrl . '/' . $path;
-}
-
-/**
  * Obtiene la URL actual
  */
 function currentUrl() {
@@ -113,4 +105,39 @@ function currentUrl() {
 function isCurrentUrl($pattern) {
     $current = $_SERVER['REQUEST_URI'];
     return strpos($current, $pattern) !== false;
+}
+
+/**
+ * Traduce los estados al español
+ */
+function translateStatus($status) {
+    $translations = [
+        // Estados de reclamos
+        'pending' => 'Pendiente',
+        'in_review' => 'En Revisión',
+        'in-review' => 'En Revisión',
+        'approved' => 'Aprobado',
+        'rejected' => 'Rechazado',
+        'closed' => 'Cerrado',
+        // Estados de pólizas
+        'active' => 'Activa',
+        'expired' => 'Expirada',
+        'cancelled' => 'Cancelada',
+        'suspended' => 'Suspendida'
+    ];
+    
+    return $translations[strtolower($status)] ?? ucfirst($status);
+}
+
+/**
+ * Traduce los roles al español
+ */
+function translateRole($role) {
+    $translations = [
+        'admin' => 'Administrador',
+        'supervisor' => 'Supervisor',
+        'analyst' => 'Analista'
+    ];
+    
+    return $translations[strtolower($role)] ?? ucfirst($role);
 }

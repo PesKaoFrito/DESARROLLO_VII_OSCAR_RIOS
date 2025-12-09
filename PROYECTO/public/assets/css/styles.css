@@ -96,6 +96,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+    color: var(--primary-color);
 }
 
 .navbar-menu {
@@ -398,7 +399,8 @@ tr:hover {
     color: #842029;
 }
 
-.badge-in-review {
+.badge-in-review,
+.badge-in_review {
     background: #cfe2ff;
     color: #084298;
 }

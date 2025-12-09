@@ -67,7 +67,7 @@ ob_start();
 <div class="hero-section" style="margin-bottom: 3rem;">
     <div style="max-width: 800px; margin: 0 auto; text-align: center;">
         <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Bienvenido, <?= $currentUser['name'] ?></h1>
-        <p style="font-size: 1.2rem; opacity: 0.9;">Panel de Control - <?= ucfirst($currentUser['role']) ?></p>
+        <p style="font-size: 1.2rem; opacity: 0.9;">Panel de Control - <?= translateRole($currentUser['role']) ?></p>
         <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
             <a href="<?= url('claims/create') ?>" class="btn btn-light" style="padding: 0.75rem 2rem;">
                 <i class="fas fa-plus"></i> Nuevo Reclamo
@@ -129,7 +129,6 @@ ob_start();
     </div>
 </div>
 
-<<<<<<< HEAD
 <div class="card">
     <div class="card-header">
         <h3><i class="fas fa-file-alt"></i> Reclamos Recientes</h3>
@@ -173,7 +172,7 @@ ob_start();
                             <td><strong><?= formatMoney($claim['amount']) ?></strong></td>
                             <td>
                                 <span class="badge badge-<?= $claim['status_name'] ?>">
-                                    <?= ucfirst($claim['status_name']) ?>
+                                    <?= translateStatus($claim['status_name']) ?>
                                 </span>
                             </td>
                             <td><?= formatDate($claim['created_at']) ?></td>
@@ -184,74 +183,6 @@ ob_start();
             </div>
         <?php endif; ?>
     </div>
-=======
-<div class="section-card">
-    <div class="section-header">
-        <h2>📋 Reclamos Recientes</h2>
-        <a href="<?= url('claims') ?>" class="btn btn-primary">Ver Todos</a>
-    </div>
-    
-    <?php if (empty($recentClaims)): ?>
-        <p>No hay reclamos registrados aún.</p>
-    <?php else: ?>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Número</th>
-                    <th>Asegurado</th>
-                    <th>Categoría</th>
-                    <th>Monto</th>
-                    <th>Estado</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($recentClaims as $claim): ?>
-                <tr>
-                    <td><strong><?= htmlspecialchars($claim['claim_number']) ?></strong></td>
-                    <td><?= htmlspecialchars($claim['insured_name']) ?></td>
-                    <td><?= htmlspecialchars($claim['category']) ?></td>
-                    <td><?= formatMoney($claim['amount']) ?></td>
-                    <td>
-                        <span class="badge badge-<?= $claim['status'] ?>">
-                            <?= ucfirst($claim['status']) ?>
-                        </span>
-                    </td>
-                    <td><?= formatDate($claim['created_at']) ?></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
-</div>
-
-<div class="quick-actions">
-    <a href="<?= url('claims/create') ?>" class="action-card">
-        <div class="action-icon">➕</div>
-        <div class="action-title">Nuevo Reclamo</div>
-        <div class="action-desc">Registrar un nuevo reclamo</div>
-    </a>
-    
-    <a href="<?= url('policies') ?>" class="action-card">
-        <div class="action-icon">📄</div>
-        <div class="action-title">Pólizas</div>
-        <div class="action-desc"><?= $stats['active_policies'] ?> pólizas activas</div>
-    </a>
-    
-    <a href="<?= url('reports') ?>" class="action-card">
-        <div class="action-icon">📊</div>
-        <div class="action-title">Reportes</div>
-        <div class="action-desc">Ver estadísticas y reportes</div>
-    </a>
-    
-    <?php if (hasRole('admin') || hasRole('supervisor')): ?>
-    <a href="<?= url('users') ?>" class="action-card">
-        <div class="action-icon">👥</div>
-        <div class="action-title">Usuarios</div>
-        <div class="action-desc">Gestionar usuarios del sistema</div>
-    </a>
-    <?php endif; ?>
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
 </div>
 
 <?php

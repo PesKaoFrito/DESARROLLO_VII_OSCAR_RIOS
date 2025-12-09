@@ -105,4 +105,39 @@ class ReportManager {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    /**
+     * Obtener estadísticas generales del sistema
+     */
+    public function getGeneralStats() {
+        $stats = [];
+        
+        // Total de reclamos
+        $stmt = $this->db->query("SELECT COUNT(*) as total FROM claims");
+        $stats['total_claims'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+        
+        // Reclamos pendientes
+        $stmt = $this->db->query("
+            SELECT COUNT(*) as total 
+            FROM claims c 
+            JOIN statuses s ON c.status_id = s.id 
+            WHERE s.name = 'pending'
+        ");
+        $stats['pending_claims'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+        
+        // Reclamos aprobados
+        $stmt = $this->db->query("
+            SELECT COUNT(*) as total 
+            FROM claims c 
+            JOIN statuses s ON c.status_id = s.id 
+            WHERE s.name = 'approved'
+        ");
+        $stats['approved_claims'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+        
+        // Total de pólizas activas
+        $stmt = $this->db->query("SELECT COUNT(*) as total FROM policies WHERE status = 'active'");
+        $stats['total_policies'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+        
+        return $stats;
+    }
 }

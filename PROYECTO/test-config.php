@@ -100,7 +100,7 @@ loadEnv(__DIR__ . '/.env');
         
         <div class="config-item">
             <div class="config-label">BASE_URL:</div>
-            <div class="config-value"><?= $_ENV['BASE_URL'] ?? '<span class="status status-error">NO DEFINIDO</span>' ?></div>
+            <div class="config-value"><?= $_ENV['APP_URL'] ?? $_ENV['BASE_URL'] ?? '<span class="status status-error">NO DEFINIDO</span>' ?></div>
         </div>
         
         <div class="config-item">
@@ -110,17 +110,17 @@ loadEnv(__DIR__ . '/.env');
         
         <div class="config-item">
             <div class="config-label">DB_NAME:</div>
-            <div class="config-value"><?= $_ENV['DB_NAME'] ?? '<span class="status status-error">NO DEFINIDO</span>' ?></div>
+            <div class="config-value"><?= $_ENV['DB_DATABASE'] ?? $_ENV['DB_NAME'] ?? '<span class="status status-error">NO DEFINIDO</span>' ?></div>
         </div>
         
         <div class="config-item">
             <div class="config-label">DB_USER:</div>
-            <div class="config-value"><?= $_ENV['DB_USER'] ?? '<span class="status status-error">NO DEFINIDO</span>' ?></div>
+            <div class="config-value"><?= $_ENV['DB_USERNAME'] ?? $_ENV['DB_USER'] ?? '<span class="status status-error">NO DEFINIDO</span>' ?></div>
         </div>
         
         <div class="config-item">
             <div class="config-label">DB_PASS:</div>
-            <div class="config-value"><?= empty($_ENV['DB_PASS']) ? '<em>(vacío)</em>' : '***oculto***' ?></div>
+            <div class="config-value"><?= empty($_ENV['DB_PASSWORD']) && empty($_ENV['DB_PASS']) ? '<em>(vacío)</em>' : '***oculto***' ?></div>
         </div>
         
         <div class="config-item">
@@ -133,17 +133,21 @@ loadEnv(__DIR__ . '/.env');
         <h2>🔌 Test de Conexión</h2>
         <?php
         try {
+            $dbName = $_ENV['DB_DATABASE'] ?? $_ENV['DB_NAME'] ?? 'proyecto_reclamos';
             $dsn = sprintf(
                 "mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4",
                 $_ENV['DB_HOST'] ?? 'localhost',
                 $_ENV['DB_PORT'] ?? '3306',
-                $_ENV['DB_NAME'] ?? 'seguros_db'
+                $dbName
             );
+            
+            $dbUser = $_ENV['DB_USERNAME'] ?? $_ENV['DB_USER'] ?? 'root';
+            $dbPass = $_ENV['DB_PASSWORD'] ?? $_ENV['DB_PASS'] ?? '';
             
             $pdo = new PDO(
                 $dsn,
-                $_ENV['DB_USER'] ?? 'root',
-                $_ENV['DB_PASS'] ?? ''
+                $dbUser,
+                $dbPass
             );
             
             echo '<div class="config-item"><span class="status status-ok">✓ CONEXIÓN EXITOSA</span></div>';

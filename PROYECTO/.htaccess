@@ -1,49 +1,24 @@
-<<<<<<< HEAD
-RewriteEngine On
-RewriteBase /PROYECTO/
-
-# Permitir acceso a archivos públicos (CSS, JS, imágenes, etc.)
-RewriteRule ^public/ - [L]
-
-# Permitir acceso a archivos PHP específicos de autenticación
-RewriteRule ^auth/(login|register|logout)\.php$ - [L]
-
-# Si el archivo o directorio existe, permitir acceso directo
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Enrutar todo a router.php
-RewriteRule ^(.*)$ router.php?url=$1 [QSA,L]
-=======
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /PROYECTO/
 
-    # ---------------------------------------------------------
-    # 1) Block ONLY direct access to /src/* (not rewrites)
-    # ---------------------------------------------------------
-    # THE_REQUEST contiene algo como: "GET /PROYECTO/src/... HTTP/1.1"
+    # Bloquear acceso directo a /src/* desde el navegador
     RewriteCond %{THE_REQUEST} \s/+PROYECTO/src/ [NC]
     RewriteRule ^src/ - [R=404,L]
 
-    # ---------------------------------------------------------
-    # 2) Permitir archivos y carpetas reales (css, js, imágenes, etc.)
-    # ---------------------------------------------------------
+    # Bloquear acceso directo a /database/*
+    RewriteCond %{THE_REQUEST} \s/+PROYECTO/database/ [NC]
+    RewriteRule ^database/ - [R=404,L]
+
+    # Bloquear acceso directo a /includes/*
+    RewriteCond %{THE_REQUEST} \s/+PROYECTO/includes/ [NC]
+    RewriteRule ^includes/ - [R=404,L]
+
+    # Permitir acceso a archivos y carpetas reales (CSS, JS, imágenes, etc.)
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
 
-    # ---------------------------------------------------------
-    # 3) Rutas bonitas genéricas
-    # ---------------------------------------------------------
-
-    # /projects  -> src/projects/index.php?action=list
-    RewriteRule ^([a-zA-Z0-9_-]+)/?$ src/$1/index.php?action=list [L,QSA]
-
-    # /projects/create -> src/projects/index.php?action=create
-    RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ src/$1/index.php?action=$2 [L,QSA]
-
-    # /projects/edit/123 -> src/projects/index.php?action=edit&id=123
-    RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([0-9]+)/?$ src/$1/index.php?action=$2&id=$3 [L,QSA]
+    # Redirigir todo lo demás a router.php
+    RewriteRule ^(.*)$ router.php?url=$1 [QSA,L]
 </IfModule>
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15

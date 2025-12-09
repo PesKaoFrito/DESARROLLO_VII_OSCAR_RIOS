@@ -74,7 +74,6 @@ try {
     }
     echo "✓ Decisiones insertadas\n\n";
     
-<<<<<<< HEAD
     // 5. Insertar Usuarios por defecto
     echo "📝 Creando usuarios del sistema...\n";
     $defaultPassword = password_hash('password123', PASSWORD_DEFAULT);
@@ -100,48 +99,6 @@ try {
     echo "   Analistas: carlos.analista@sistema.com, maria.analista@sistema.com, jose.analista@sistema.com, ana.analista@sistema.com\n";
     echo "   Password para supervisores y analistas: password123\n";
     echo "   ⚠️  Cambiar contraseñas después del primer login\n\n";
-=======
-    // 5. Insertar Usuario Administrador por defecto
-    echo "📝 Creando usuario administrador...\n";
-    $adminPassword = password_hash('admin123', PASSWORD_DEFAULT);
-    
-    // Verificar si ya existe el usuario admin
-    $checkStmt = $db->prepare("SELECT id FROM users WHERE email = ?");
-    $checkStmt->execute(['admin@sistema.com']);
-    
-    if (!$checkStmt->fetch()) {
-        $stmt = $db->prepare("INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)");
-        $stmt->execute(['Administrador', 'admin@sistema.com', $adminPassword, 'admin']);
-        echo "✓ Usuario admin creado (ID: " . $db->lastInsertId() . ")\n";
-    } else {
-        echo "⚠️  Usuario admin ya existe\n";
-    }
-    
-    echo "   Email: admin@sistema.com\n";
-    echo "   Password: admin123\n";
-    echo "   ⚠️  Cambiar contraseña después del primer login\n\n";
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
-    
-    // 6. Insertar Usuarios de Ejemplo (Analista y Supervisor)
-    echo "📝 Creando usuarios de ejemplo...\n";
-    $exampleUsers = [
-        ['Carlos Rodríguez', 'carlos.rodriguez@sistema.com', 'analyst'],
-        ['Ana Martínez', 'ana.martinez@sistema.com', 'supervisor'],
-        ['Pedro Sánchez', 'pedro.sanchez@sistema.com', 'analyst']
-    ];
-    
-    $password = password_hash('password123', PASSWORD_DEFAULT);
-    $checkStmt = $db->prepare("SELECT id FROM users WHERE email = ?");
-    $insertStmt = $db->prepare("INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)");
-    
-    foreach ($exampleUsers as $user) {
-        $checkStmt->execute([$user[1]]);
-        if (!$checkStmt->fetch()) {
-            $insertStmt->execute([$user[0], $user[1], $password, $user[2]]);
-            echo "   ✓ Usuario creado: {$user[0]} ({$user[2]})\n";
-        }
-    }
-    echo "   Password para todos: password123\n\n";
     
     // 7. Insertar Pólizas de Ejemplo (opcional)
     echo "📝 Insertando pólizas de ejemplo...\n";
@@ -213,55 +170,67 @@ try {
     // 8. Insertar Reclamos de Ejemplo
     echo "📝 Insertando reclamos de ejemplo...\n";
     
-    // Obtener IDs de usuarios
-    $analystStmt = $db->prepare("SELECT id FROM users WHERE role = 'analyst' LIMIT 1");
-    $analystStmt->execute();
-    $analyst = $analystStmt->fetch();
-    $analystId = $analyst ? $analyst['id'] : 1;
-    
-    $supervisorStmt = $db->prepare("SELECT id FROM users WHERE role = 'supervisor' LIMIT 1");
-    $supervisorStmt->execute();
-    $supervisor = $supervisorStmt->fetch();
-    $supervisorId = $supervisor ? $supervisor['id'] : null;
+    // Obtener IDs necesarios
+    $policyId = $db->query("SELECT id FROM policies LIMIT 1")->fetchColumn() ?: 1;
+    $categoryAutoId = $db->query("SELECT id FROM categories WHERE name = 'Auto' LIMIT 1")->fetchColumn() ?: 1;
+    $categoryHomeId = $db->query("SELECT id FROM categories WHERE name = 'Hogar' LIMIT 1")->fetchColumn() ?: 2;
+    $categoryHealthId = $db->query("SELECT id FROM categories WHERE name = 'Salud' LIMIT 1")->fetchColumn() ?: 4;
+    $statusPendingId = $db->query("SELECT id FROM statuses WHERE name = 'pending' LIMIT 1")->fetchColumn() ?: 1;
+    $statusReviewId = $db->query("SELECT id FROM statuses WHERE name = 'in-review' LIMIT 1")->fetchColumn() ?: 2;
+    $statusApprovedId = $db->query("SELECT id FROM statuses WHERE name = 'approved' LIMIT 1")->fetchColumn() ?: 3;
+    $analystId = $db->query("SELECT id FROM users WHERE role = 'analyst' LIMIT 1")->fetchColumn() ?: 4;
+    $supervisorId = $db->query("SELECT id FROM users WHERE role = 'supervisor' LIMIT 1")->fetchColumn() ?: 2;
     
     $claims = [
         [
             'CLM-2025-00001',
+            $policyId,
+            $categoryAutoId,
+            $statusPendingId,
             'Juan Pérez García',
-            'Auto',
+            '6234-5678',
+            'juan.perez@email.com',
             5000.00,
-            'pending',
+            'Colisión en intersección, daños en parte frontal del vehículo',
             $analystId,
             $supervisorId
         ],
         [
             'CLM-2025-00002',
+            $policyId,
+            $categoryHomeId,
+            $statusReviewId,
             'María González López',
-            'Hogar',
+            '6345-6789',
+            'maria.gonzalez@email.com',
             8500.00,
-            'in-review',
+            'Daños por inundación en el primer piso de la vivienda',
             $analystId,
             $supervisorId
         ],
         [
             'CLM-2025-00003',
+            $policyId,
+            $categoryHealthId,
+            $statusApprovedId,
             'Carlos López Díaz',
-            'Salud',
+            '6456-7890',
+            'carlos.lopez@email.com',
             12000.00,
-            'approved',
+            'Cirugía de emergencia por apendicitis aguda',
             $analystId,
             $supervisorId
         ]
     ];
     
     $checkClaim = $db->prepare("SELECT id FROM claims WHERE claim_number = ?");
-    $insertClaim = $db->prepare("INSERT INTO claims (claim_number, insured_name, category, amount, status, analyst_id, supervisor_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $insertClaim = $db->prepare("INSERT INTO claims (claim_number, policy_id, category_id, status_id, insured_name, insured_phone, insured_email, amount, description, analyst_id, supervisor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
     foreach ($claims as $claim) {
         $checkClaim->execute([$claim[0]]);
         if (!$checkClaim->fetch()) {
             $insertClaim->execute($claim);
-            echo "   ✓ Reclamo creado: {$claim[0]} - {$claim[1]}\n";
+            echo "   ✓ Reclamo creado: {$claim[0]} - {$claim[4]}\n";
         }
     }
     echo "✓ Reclamos de ejemplo insertados\n\n";
@@ -275,11 +244,11 @@ try {
     echo "      Email: admin@sistema.com\n";
     echo "      Password: admin123\n\n";
     echo "   👔 Supervisor:\n";
-    echo "      Email: ana.martinez@sistema.com\n";
+    echo "      Email: roberto.supervisor@sistema.com\n";
     echo "      Password: password123\n\n";
     echo "   📊 Analistas:\n";
-    echo "      Email: carlos.rodriguez@sistema.com\n";
-    echo "      Email: pedro.sanchez@sistema.com\n";
+    echo "      Email: carlos.analista@sistema.com\n";
+    echo "      Email: ana.analista@sistema.com\n";
     echo "      Password: password123\n\n";
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
     echo "🌐 Accede a: " . BASE_URL . "\n";

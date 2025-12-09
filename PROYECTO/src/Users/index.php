@@ -62,7 +62,7 @@ ob_start();
                             <td><?= htmlspecialchars($user['email']) ?></td>
                             <td>
                                 <span class="badge badge-secondary">
-                                    <?= ucfirst($user['role']) ?>
+                                    <?= translateRole($user['role']) ?>
                                 </span>
                             </td>
                             <td>
