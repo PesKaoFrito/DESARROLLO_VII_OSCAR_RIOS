@@ -23,13 +23,13 @@ $claim = $claimManager->getClaimById($claimId);
 
 if (!$claim) {
     $_SESSION['error_message'] = 'Reclamo no encontrado';
-    redirectTo('src/Claims/');
+    redirectTo('claims');
 }
 
 // Verificar permisos de edición
 if (!$claimManager->canUserEditClaim($claimId, $currentUser['id'], $currentUser['role'])) {
     $_SESSION['error_message'] = 'No tienes permisos para editar este reclamo';
-    redirectTo('src/Claims/');
+    redirectTo('claims');
 }
 
 $policies = $policyManager->getAllPolicies();
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($result) {
         $_SESSION['success_message'] = 'Reclamo actualizado exitosamente';
-        redirectTo('src/Claims/views/view.php?id=' . $claimId);
+        redirectTo('claims/view?id=' . $claimId);
     } else {
         $errors[] = 'Error al actualizar el reclamo';
     }

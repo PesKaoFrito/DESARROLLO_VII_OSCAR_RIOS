@@ -14,7 +14,7 @@ $claim = $claimManager->getClaimById($claimId);
 
 if (!$claim) {
     $_SESSION['error_message'] = 'Reclamo no encontrado';
-    redirectTo('src/Claims/');
+    redirectTo('claims');
 }
 
 // Verificar si el usuario puede ver este reclamo
@@ -29,7 +29,7 @@ if ($currentUser['role'] === 'admin') {
 
 if (!$canView) {
     $_SESSION['error_message'] = 'No tienes permisos para ver este reclamo';
-    redirectTo('src/Claims/');
+    redirectTo('claims');
 }
 
 $canEdit = $claimManager->canUserEditClaim($claimId, $currentUser['id'], $currentUser['role']);

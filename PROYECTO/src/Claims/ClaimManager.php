@@ -37,6 +37,13 @@ class ClaimManager {
         $statusStmt->execute();
         $statusId = $statusStmt->fetchColumn() ?: 1;
         
+        // Si no se especificó analista, asignar automáticamente al que tenga menos reclamos
+        $analystId = $data['analyst_id'] ?? null;
+        if (!$analystId) {
+            $analyst = $this->getAnalystWithFewestClaims();
+            $analystId = $analyst ? $analyst['id'] : null;
+        }
+        
         // Insertar el reclamo con todos los campos del formulario
         $stmt = $this->db->prepare("
             INSERT INTO claims (
@@ -64,7 +71,7 @@ class ClaimManager {
             $data['insured_email'] ?? null,
             $data['amount'],
             $data['description'] ?? null,
-            $data['analyst_id'] ?? null
+            $analystId
         ]);
         
         return $result ? $this->db->lastInsertId() : false;
@@ -202,6 +209,25 @@ class ClaimManager {
         ");
         $stmt->execute([$supervisorId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Método para obtener el analista con menos reclamos asignados
+    public function getAnalystWithFewestClaims() {
+        $stmt = $this->db->query("
+            SELECT 
+                u.id,
+                u.name,
+                COUNT(c.id) as claim_count
+            FROM users u
+            LEFT JOIN claims c ON u.id = c.analyst_id AND c.status_id IN (
+                SELECT id FROM statuses WHERE name IN ('pending', 'in_review', 'in-review')
+            )
+            WHERE u.role = 'analyst'
+            GROUP BY u.id, u.name
+            ORDER BY claim_count ASC, u.id ASC
+            LIMIT 1
+        ");
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // Método para verificar si un usuario puede editar un reclamo

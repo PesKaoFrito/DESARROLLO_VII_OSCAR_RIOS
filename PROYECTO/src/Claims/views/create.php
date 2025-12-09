@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($claimId) {
             $success = true;
             $_SESSION['success_message'] = 'Reclamo creado exitosamente';
-            redirectTo('src/Claims/views/view.php?id=' . $claimId);
+            redirectTo('claims/view?id=' . $claimId);
         } else {
             $errors[] = 'Error al crear el reclamo';
         }
