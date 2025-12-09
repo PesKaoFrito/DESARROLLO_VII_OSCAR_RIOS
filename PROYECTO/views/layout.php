@@ -9,7 +9,6 @@
 </head>
 <body>
     <?php if (isset($showNav) && $showNav): ?>
-<<<<<<< HEAD
     <header class="main-header">
         <div class="header-top">
             <div class="header-top-content">
@@ -23,24 +22,6 @@
                 </div>
                 <div>
                     <span><i class="fas fa-clock"></i> Lun - Vie: 8:00 AM - 6:00 PM</span>
-=======
-    <nav class="navbar">
-        <div class="navbar-content">
-            <a href="<?= url('dashboard.php') ?>" class="navbar-brand">🛡️ Sistema de Reclamos</a>
-            <div class="navbar-menu">
-                <a href="<?= url('dashboard.php') ?>">📊 Dashboard</a>
-                <a href="<?= url('claims') ?>">📋 Reclamos</a>
-                <a href="<?= url('policies') ?>">📄 Pólizas</a>
-                <a href="<?= url('reports') ?>">📈 Reportes</a>
-                <?php if (hasRole('admin') || hasRole('supervisor')): ?>
-                <a href="<?= url('users') ?>">👥 Usuarios</a>
-                <?php endif; ?>
-            </div>
-            <div class="navbar-user">
-                <div class="user-info">
-                    <div class="user-name"><?= getCurrentUser()['name'] ?></div>
-                    <div class="user-role"><?= ucfirst(getCurrentUser()['role']) ?></div>
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
                 </div>
             </div>
         </div>
