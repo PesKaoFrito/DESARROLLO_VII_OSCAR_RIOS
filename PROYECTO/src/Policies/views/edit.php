@@ -13,7 +13,7 @@ $policy = $policyManager->getPolicyById($policyId);
 
 if (!$policy) {
     $_SESSION['error_message'] = 'Póliza no encontrada';
-    redirectTo('policies/');
+    redirectTo('policies');
 }
 
 $errors = [];
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($policyManager->updatePolicy($policyId, $data)) {
             $_SESSION['success_message'] = 'Póliza actualizada exitosamente';
-            redirectTo('policies/views/view?id=' . $policyId);
+            redirectTo('policies/view?id=' . $policyId);
         } else {
             $errors[] = 'Error al actualizar la póliza';
         }

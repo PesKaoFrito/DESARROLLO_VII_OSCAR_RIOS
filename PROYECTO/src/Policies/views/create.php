@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($policyManager->createPolicy($data)) {
             $_SESSION['success_message'] = 'Póliza creada exitosamente';
-            redirectTo('policies/');
+            redirectTo('policies');
         } else {
             $errors[] = 'Error al crear la póliza';
         }
