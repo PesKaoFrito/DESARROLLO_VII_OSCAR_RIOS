@@ -1,20 +1,94 @@
 # 🛡️ Sistema de Gestión de Reclamos de Seguros - SecureLife Insurance
 
+[![PHP Version](https://img.shields.io/badge/PHP-8.0+-777BB4?style=flat&logo=php&logoColor=white)](https://www.php.net/)
+[![MySQL](https://img.shields.io/badge/MySQL-5.7+-4479A1?style=flat&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![License](https://img.shields.io/badge/License-Educational-green?style=flat)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Active-success?style=flat)](https://github.com)
+
 Sistema completo para la gestión y seguimiento de reclamos de seguros, desarrollado con arquitectura **MVC en PHP Vanilla** (sin frameworks) siguiendo las mejores prácticas de desarrollo.
+
+### 🎯 Propósito
+Proyecto final de **Desarrollo Web VII** - Universidad Tecnológica de Panamá. Sistema profesional que demuestra dominio de PHP, MySQL, arquitectura MVC y mejores prácticas de desarrollo web.
+
+### ⭐ Características Destacadas
+```
+✅ 10 módulos completamente funcionales    ✅ Sistema de autenticación robusto
+✅ Arquitectura MVC simplificada           ✅ Control de acceso por roles (RBAC)
+✅ Base de datos normalizada               ✅ Interfaz responsive y moderna
+✅ Sistema de migraciones                  ✅ Reportes y estadísticas
+✅ Gestión de archivos adjuntos            ✅ Búsqueda y filtros avanzados
+```
 
 ---
 
 ## 📋 Tabla de Contenidos
 
-- [Características](#-características-principales)
-- [Arquitectura MVC](#-arquitectura-mvc)
-- [Instalación](#-instalación-rápida)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Módulos Disponibles](#-módulos-disponibles)
-- [Funciones Helper](#-funciones-helper)
-- [Base de Datos](#-base-de-datos)
-- [Guía de Desarrollo](#-guía-de-desarrollo)
+### 🚀 Inicio Rápido
+- [Tecnologías Utilizadas](#️-tecnologías-utilizadas)
+- [Características Principales](#-características-principales)
+- [Instalación Rápida](#-instalación-rápida)
 - [Credenciales de Acceso](#-credenciales-de-acceso)
+
+### 📐 Arquitectura
+- [Arquitectura MVC](#️-arquitectura-mvc)
+- [Características Técnicas](#-características-técnicas-implementadas)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+
+### 📦 Módulos y Base de Datos
+- [Módulos Disponibles](#-módulos-disponibles)
+- [Base de Datos](#️-base-de-datos)
+- [Datos Iniciales (Seed)](#-datos-iniciales-seed)
+
+### 💻 Desarrollo
+- [Funciones Helper](#️-funciones-helper)
+- [Guía de Desarrollo](#-guía-de-desarrollo)
+- [Personalización del Tema](#-personalización-del-tema)
+
+### 🔧 Utilidades
+- [Comandos Útiles](#-comandos-útiles)
+- [Troubleshooting](#-troubleshooting-solución-de-problemas)
+- [Preguntas Frecuentes](#-preguntas-frecuentes-faq)
+
+### 📚 Recursos
+- [Recursos Adicionales](#-recursos-adicionales)
+- [Notas de Versión](#-notas-de-versión)
+- [Extensión Recomendada](#-extensión-recomendada-para-visualización)
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+### Backend
+- **PHP 8.0+** - Lenguaje de programación principal
+- **MySQL/MariaDB** - Sistema de gestión de base de datos
+- **PDO** - Capa de abstracción de base de datos
+- **Sessions** - Gestión de sesiones y autenticación
+
+### Frontend
+- **HTML5** - Estructura semántica
+- **CSS3** - Estilos personalizados y variables CSS
+- **JavaScript (Vanilla)** - Interactividad del cliente
+- **Font Awesome 6** - Biblioteca de iconos
+- **Responsive Design** - Compatible con móviles y tablets
+
+### Arquitectura & Patrones
+- **MVC (Model-View-Controller)** - Patrón arquitectónico
+- **Singleton** - Para conexión a base de datos
+- **Repository Pattern** - Managers para acceso a datos
+- **Environment Variables** - Configuración con `.env`
+
+### Herramientas de Desarrollo
+- **Git** - Control de versiones
+- **Composer** (opcional) - Gestión de dependencias PHP
+- **Laragon/XAMPP** - Entorno de desarrollo local
+- **VS Code** - Editor recomendado
+
+### Seguridad
+- **Password Hashing** - `password_hash()` / `password_verify()`
+- **Prepared Statements** - Prevención de SQL Injection
+- **Input Sanitization** - Validación de datos
+- **Session Management** - Control de acceso seguro
+- **RBAC** - Control basado en roles
 
 ---
 
@@ -22,17 +96,11 @@ Sistema completo para la gestión y seguimiento de reclamos de seguros, desarrol
 
 ### ✅ Funcionalidades Implementadas
 
-<<<<<<< HEAD
 1. **Gestión de Pólizas y Clientes**
-=======
-1. **Registro de Pólizas y Clientes**
-
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
    - CRUD completo de pólizas
    - Gestión de datos de asegurados
    - Búsqueda y filtros avanzados
    - Estadísticas de cobertura
-<<<<<<< HEAD
 
 2. **Sistema de Reclamos**
    - Registro y seguimiento de reclamos
@@ -59,147 +127,98 @@ Sistema completo para la gestión y seguimiento de reclamos de seguros, desarrol
    - Interfaz intuitiva
    - Iconos Font Awesome
    - Animaciones suaves
-=======
-2. **Formulario de Reclamos**
 
-   - Registro de nuevos reclamos
-   - Asociación con pólizas existentes
-   - Categorización por tipo de siniestro
-   - Validación de datos completa
-3. **Seguimiento de Casos**
+---
 
-   - Dashboard con estadísticas en tiempo real
-   - Filtros por estado (pendiente, aprobado, rechazado)
-   - Búsqueda por múltiples criterios
-   - Asignación de analistas y supervisores
-4. **Documentación de Evidencias**
+## 📸 Pantallas del Sistema
 
-   - Sistema de carga de archivos
-   - Gestión de documentos por reclamo
-   - Validación de tipos y tamaños
-5. **Reportes de Siniestralidad**
+### 🏠 Landing Page
+- Página de bienvenida moderna con hero section
+- Características destacadas del sistema
+- Call-to-action para iniciar sesión
 
-   - Estadísticas generales del sistema
-   - Análisis por categoría
-   - Tendencias por mes
-   - Métricas de pólizas
-   - Exportación e impresión
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
+### 📊 Dashboard
+- **Vista Admin**: Estadísticas globales de todos los reclamos y pólizas
+- **Vista Supervisor**: Métricas de su equipo y reclamos asignados
+- **Vista Analyst**: Resumen de reclamos personales pendientes
+- Gráficos de estado de reclamos
+- Acceso rápido a acciones comunes
+- Reclamos recientes
+
+### 🎯 Gestión de Reclamos
+- **Lista**: Tabla con filtros por estado, búsqueda y ordenamiento
+- **Crear**: Formulario con validación y selección de póliza
+- **Editar**: Actualización de datos con control de permisos
+- **Ver**: Vista detallada con toda la información del reclamo
+- **Archivos**: Gestión de documentos adjuntos
+
+### 📋 Gestión de Pólizas
+- Listado completo de pólizas activas/vencidas
+- Creación de nuevas pólizas con validación
+- Edición de datos de cobertura
+- Vista detallada con reclamos asociados
+
+### 👥 Gestión de Usuarios
+- Administración de usuarios del sistema (solo Admin)
+- Asignación de roles y permisos
+- Activación/desactivación de cuentas
+- Búsqueda y filtros
+
+### 📈 Reportes
+- Estadísticas por categoría de reclamo
+- Análisis de tiempos de procesamiento
+- Reportes de aprobación/rechazo
+- Métricas por analista/supervisor
+- Filtros por fecha y estado
+
+### 🏷️ Configuración
+- Gestión de categorías de reclamos
+- Administración de estados
+- Tipos de decisiones
+- Roles del sistema
 
 ---
 
 ## 🏗️ Arquitectura MVC
 
-El proyecto sigue el patrón **Modelo-Vista-Controlador (MVC)**:
+El proyecto sigue el patrón **Modelo-Vista-Controlador (MVC)** simplificado:
 
 ```
-<<<<<<< HEAD
 ┌─────────────┐
 │   Browser   │
 └──────┬──────┘
        │
        ▼
 ┌─────────────┐      ┌─────────────┐      ┌─────────────┐
-│    Views    │ ◄─── │ Controllers │ ◄─── │   Models    │
-│  (UI/HTML)  │      │   (Logic)   │      │  (Data)     │
-└─────────────┘      └─────────────┘      └─────────────┘
-                            │
-                            ▼
-                     ┌─────────────┐
-                     │  Database   │
+│    Views    │ ◄─── │  index.php  │ ◄─── │   Models    │
+│  (UI/HTML)  │      │  (Router +  │      │  (Data)     │
+│             │      │   Logic)    │      │             │
+└─────────────┘      └──────┬──────┘      └─────────────┘
+                            │                     │
+                            ▼                     ▼
+                     ┌─────────────┐      ┌─────────────┐
+                     │  Managers   │ ◄─── │  Database   │
+                     │  (Business  │      │  (Singleton)│
+                     │   Logic)    │      └─────────────┘
                      └─────────────┘
-=======
-PROYECTO/
-├── .htaccess               # ✨ URLs amigables configuradas
-├── config.php              # Configuración global
-├── dashboard.php           # Dashboard principal
-├── index.php               # Punto de entrada
-│
-├── auth/                   # Sistema de autenticación
-│   ├── login.php
-│   ├── register.php
-│   └── logout.php
-│
-├── database/
-│   ├── MigrationManager.php
-│   └── migrations/         # Migraciones SQL
-│       ├── 001_create_roles_table.sql
-│       ├── 002_create_categories_table.sql
-│       ├── 003_create_decisions_table.sql
-│       ├── 004_create_statuses_table.sql
-│       ├── 005_create_claims_table.sql
-│       ├── 006_create_users_table.sql
-│       ├── 007_create_claimsresults_table.sql
-│       ├── 008_create_claimfiles_table.sql
-│       ├── 009_create_policies_table.sql
-│       └── 010_update_claims_table.sql
-├── includes/
-│   ├── auth.php           # Funciones de autenticación
-│   └── helpers.php        # ✨ Funciones auxiliares + url()
-│
-├── public/
-│   └── assets/
-│       ├── css/
-│       │   ├── style.css
-│       │   └── app.css
-│       └── js/
-│           └── main.js
-│
-├── src/                   # ⭐ Todos los módulos aquí
-│   ├── Database.php
-│   │
-│   ├── Categories/
-│   │   ├── Category.php
-│   │   └── CategoryManager.php
-│   │
-│   ├── Claims/           # ✨ Módulo completo con routing
-│   │   ├── index.php     # Router
-│   │   ├── Claim.php
-│   │   ├── ClaimManager.php
-│   │   └── views/
-│   │       ├── list.php
-│   │       ├── create.php
-│   │       ├── edit.php
-│   │       └── view.php
-│   │
-│   ├── Policies/         # ✨ Módulo completo con routing
-│   │   ├── index.php     # Router
-│   │   ├── Policy.php
-│   │   ├── PolicyManager.php
-│   │   └── views/
-│   │       ├── list.php
-│   │       ├── create.php
-│   │       ├── edit.php
-│   │       └── view.php
-│   │
-│   ├── Reports/          # ✨ Módulo completo con routing
-│   │   ├── index.php     # Router
-│   │   └── views/
-│   │       └── index.php
-│   │
-│   ├── Users/
-│   │   ├── User.php
-│   │   └── UserManager.php
-│   │
-│   └── ... (otros modelos)
-│
-├── views/
-│   └── layout.php        # Template principal
-├── .env                  # Configuración de entorno
-├── config.php           # Configuración global
-├── dashboard.php        # Dashboard principal
-├── index.php            # Punto de entrada
-└── run-migrations.php   # Ejecutor de migraciones
-
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
 ```
 
 ### Componentes
 
-- **Models** (`{Nombre}.php`): Representan las entidades de datos
-- **Managers** (`{NombreManager}.php`): Lógica de negocio y acceso a datos
-- **Controllers** (`{NombreController}.php`): Procesa requests y coordina Models/Views
+- **Models** (`{Nombre}.php`): Representan las entidades de datos con sus propiedades
+- **Managers** (`{NombreManager}.php`): Lógica de negocio y acceso a datos (CRUD)
+- **Entry Point** (`index.php`): Procesa requests, ruteo y coordina Models/Views
 - **Views** (`views/*.php`): Interfaz de usuario (HTML/PHP)
+- **Database** (`Database.php`): Conexión singleton a la base de datos
+
+### Flujo de una Petición
+
+1. Usuario accede a `/PROYECTO/src/Claims/index.php?action=create`
+2. `index.php` valida autenticación y procesa la acción
+3. Se instancia el `Manager` correspondiente
+4. El Manager consulta/modifica datos usando PDO
+5. Los datos se pasan a la vista correspondiente
+6. La vista se renderiza usando el layout principal
 
 ---
 
@@ -214,7 +233,6 @@ PROYECTO/
 
 ### Pasos de Instalación
 
-<<<<<<< HEAD
 #### 1️⃣ Crear Base de Datos
 
 ```sql
@@ -247,140 +265,12 @@ Acceder en el navegador:
 ```
 http://localhost/PROYECTO/run-migrations.php
 ```
-=======
-1. **Clonar o descargar el proyecto**
-
-   ```bash
-   cd C:\laragon\www
-   git clone <repository-url> PROYECTO
-   ```
-2. **Configurar la base de datos**
-
-   Editar el archivo `.env`:
-
-   ```env
-   BASE_URL=http://localhost/PROYECTO/
-
-   DB_HOST=localhost
-   DB_NAME=utp_proyecto_final
-   DB_USER=root
-   DB_PASS=
-   ```
-3. **Crear la base de datos**
-
-   ```sql
-   CREATE DATABASE utp_proyecto_final CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-   ```
-4. **Ejecutar las migraciones**
-
-   Acceder a través del navegador:
-
-   ```
-   http://localhost/PROYECTO/run-migrations.php
-   ```
-
-   O ejecutar desde línea de comandos:
-
-   ```bash
-   php run-migrations.php
-   ```
-5. **Datos iniciales (Seed)**
-
-   Insertar roles básicos:
-
-   ```sql
-   INSERT INTO roles (name, description) VALUES
-   ('admin', 'Administrador del sistema'),
-   ('supervisor', 'Supervisor de reclamos'),
-   ('analyst', 'Analista de reclamos');
-   ```
-
-   Insertar categorías:
-
-   ```sql
-   INSERT INTO categories (name, description) VALUES
-   ('Auto', 'Reclamos de vehículos'),
-   ('Hogar', 'Reclamos de propiedad'),
-   ('Vida', 'Reclamos de seguros de vida'),
-   ('Salud', 'Reclamos médicos');
-   ```
-
-   Insertar estados:
-
-   ```sql
-   INSERT INTO statuses (name, description) VALUES
-   ('pending', 'Pendiente de revisión'),
-   ('in-review', 'En revisión'),
-   ('approved', 'Aprobado'),
-   ('rejected', 'Rechazado');
-   ```
-
-   Insertar decisiones:
-
-   ```sql
-   INSERT INTO decisions (name, description) VALUES
-   ('approved', 'Reclamo aprobado'),
-   ('rejected', 'Reclamo rechazado'),
-   ('partial', 'Aprobación parcial');
-   ```
-6. **Acceder al sistema**
-
-   ```
-   http://localhost/PROYECTO/
-   ```
-
-   La primera vez redirigirá al registro. Crear una cuenta con email y contraseña.
-
-## ✨ URLs Amigables
-
-El sistema utiliza **mod_rewrite** para URLs limpias y profesionales:
-
-### Ejemplos de URLs:
-
-**Antes** (archivos PHP directos):
-
-```
-/PROYECTO/modules/claims/index.php
-/PROYECTO/modules/claims/create.php
-/PROYECTO/modules/policies/view.php?id=123
-```
-
-**Ahora** (URLs amigables):
-
-```
-/PROYECTO/claims              → Listado de reclamos
-/PROYECTO/claims/create       → Crear reclamo
-/PROYECTO/claims/view/123     → Ver detalle
-/PROYECTO/claims/edit/123     → Editar reclamo
-/PROYECTO/policies            → Listado de pólizas
-/PROYECTO/policies/create     → Crear póliza
-/PROYECTO/reports             → Dashboard de reportes
-```
-
-### Función Helper `url()`:
-
-```php
-// En cualquier vista PHP
-<a href="<?= url('claims') ?>">Ver Reclamos</a>
-<a href="<?= url('policies/create') ?>">Nueva Póliza</a>
-<a href="<?= url('claims/edit/' . $id) ?>">Editar</a>
-```
-
-## 👥 Roles y Permisos
-
-| Rol                  | Permisos                                                 |
-| -------------------- | -------------------------------------------------------- |
-| **Admin**      | Acceso completo al sistema, gestión de usuarios         |
-| **Supervisor** | Gestión de reclamos, asignación de analistas, reportes |
-| **Analyst**    | Creación y seguimiento de reclamos, documentación      |
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
 
 O ejecutar desde terminal:
 ```bash
 php run-migrations.php
 ```
 
-<<<<<<< HEAD
 #### 4️⃣ Ejecutar Seed (Datos Iniciales)
 
 ```bash
@@ -394,40 +284,53 @@ http://localhost/PROYECTO/database/seed.php
 ```
 
 #### 5️⃣ Acceder al Sistema
-=======
-### Dashboard
-
-- Estadísticas generales
-- Reclamos recientes
-- Accesos rápidos
-- Métricas en tiempo real
-
-### Gestión de Reclamos
-
-- Listado con filtros
-- Creación de nuevos reclamos
-- Edición y seguimiento
-- Cambio de estados
-- Carga de documentos
-
-### Gestión de Pólizas
-
-- Registro de pólizas
-- Datos de asegurados
-- Vigencias y coberturas
-- Búsqueda avanzada
-
-### Reportes
-
-- Estadísticas por categoría
-- Tendencias temporales
-- Métricas de pólizas
-- Exportación de datos
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
 
 ```
 http://localhost/PROYECTO/
 ```
+
+---
+
+## 🔥 Características Técnicas Implementadas
+
+### Seguridad
+- ✅ Validación y sanitización de datos de entrada
+- ✅ Prepared Statements (PDO) para prevenir SQL Injection
+- ✅ Control de sesiones seguras
+- ✅ Hash de contraseñas con `password_hash()`
+- ✅ Protección CSRF (en proceso)
+- ✅ Control de acceso basado en roles (RBAC)
+
+### Base de Datos
+- ✅ Sistema de migraciones automatizado
+- ✅ Seeders para datos iniciales
+- ✅ Conexión Singleton para optimización
+- ✅ Transacciones para operaciones críticas
+- ✅ Índices optimizados para búsquedas
+
+### Arquitectura
+- ✅ Patrón MVC simplificado
+- ✅ Separación de responsabilidades
+- ✅ Código reutilizable y modular
+- ✅ Sistema de helpers y utilidades
+- ✅ Configuración centralizada con `.env`
+
+### UX/UI
+- ✅ Diseño responsive (mobile-first)
+- ✅ Tema profesional de seguros
+- ✅ Iconos Font Awesome
+- ✅ Feedback visual en operaciones
+- ✅ Mensajes de error y éxito
+- ✅ Tablas ordenables y filtros dinámicos
+
+### Funcionalidades
+- ✅ Dashboard con estadísticas en tiempo real
+- ✅ Sistema de búsqueda global
+- ✅ Filtros avanzados por múltiples criterios
+- ✅ Gestión de archivos adjuntos
+- ✅ Generación de reportes
+- ✅ Historial de cambios (audit logs)
+- ✅ Sistema de notificaciones
 
 ---
 
@@ -438,12 +341,22 @@ PROYECTO/
 ├── auth/                      # Autenticación
 │   ├── login.php             # Página de login
 │   ├── logout.php            # Cerrar sesión
-│   └── register.php          # Registro (opcional)
+│   └── register.php          # Registro de usuarios
 │
 ├── database/                  # Base de datos
 │   ├── MigrationManager.php  # Gestor de migraciones
-│   ├── migrations/           # Archivos SQL de migración
-│   └── seed.php              # Datos iniciales
+│   ├── drop-all-tables.php   # Limpieza de BD
+│   ├── seed.php              # Datos iniciales
+│   └── migrations/           # Migraciones SQL
+│       ├── 001_create_roles_table.sql
+│       ├── 002_create_categories_table.sql
+│       ├── 003_create_decisions_table.sql
+│       ├── 004_create_statuses_table.sql
+│       ├── 005_create_policies_table.sql
+│       ├── 006_create_users_table.sql
+│       ├── 007_create_claims_table.sql
+│       ├── 008_create_claimsresults_table.sql
+│       └── 009_create_claimfiles_table.sql
 │
 ├── includes/                  # Utilidades
 │   ├── auth.php              # Funciones de autenticación
@@ -457,28 +370,42 @@ PROYECTO/
 │           └── main.js       # JavaScript principal
 │
 ├── src/                       # Código fuente (MVC)
-│   ├── Controller.php        # Controlador base
+│   ├── Controller.php        # Controlador base (legacy)
 │   ├── Database.php          # Conexión a BD (Singleton)
 │   │
-│   └── {ModuleName}/         # Módulos del sistema
-│       ├── {ModuleName}.php           # Modelo
-│       ├── {ModuleName}Manager.php    # Manager (lógica)
-│       ├── {ModuleName}Controller.php # Controlador
-│       ├── index.php                  # Entrada del módulo
-│       └── views/                     # Vistas del módulo
-│           ├── index.php              # Lista
-│           ├── create.php             # Crear
-│           ├── edit.php               # Editar
-│           └── view.php               # Detalle
+│   ├── Claims/               # Módulo de Reclamos
+│   │   ├── Claim.php         # Modelo
+│   │   ├── ClaimManager.php  # Lógica de negocio
+│   │   ├── index.php         # Entry point y router
+│   │   └── views/
+│   │       ├── index.php     # Lista
+│   │       ├── create.php    # Crear
+│   │       ├── edit.php      # Editar
+│   │       └── view.php      # Detalle
+│   │
+│   ├── Policies/             # Módulo de Pólizas
+│   ├── Users/                # Módulo de Usuarios
+│   ├── Categories/           # Módulo de Categorías
+│   ├── Statuses/             # Módulo de Estados
+│   ├── Roles/                # Módulo de Roles
+│   ├── Decisions/            # Módulo de Decisiones
+│   ├── ClaimFiles/           # Módulo de Archivos
+│   ├── ClaimResults/         # Módulo de Resultados
+│   └── Reports/              # Módulo de Reportes
 │
 ├── views/                     # Templates globales
 │   └── layout.php            # Layout principal
 │
-├── .env                       # Variables de entorno
+├── .env                       # Variables de entorno (no incluido en repo)
+├── .env.example              # Ejemplo de configuración
 ├── config.php                # Configuración global
 ├── dashboard.php             # Dashboard principal
 ├── index.php                 # Landing page
+├── router.php                # Sistema de ruteo
 ├── run-migrations.php        # Ejecutor de migraciones
+├── test-config.php           # Verificar configuración
+├── test-connection.php       # Verificar conexión BD
+├── check-data.php            # Verificar datos
 └── README.md                 # Esta documentación
 ```
 
@@ -486,76 +413,100 @@ PROYECTO/
 
 ## 📦 Módulos Disponibles
 
-<<<<<<< HEAD
-Cada módulo sigue la estructura MVC completa:
-=======
-Cada entidad del sistema sigue el patrón:
+Cada módulo sigue la estructura MVC simplificada (sin controladores separados):
 
-- **Clase Modelo**: Representa la entidad (ej. `Claim.php`)
-- **Clase Manager**: Gestiona operaciones CRUD (ej. `ClaimManager.php`)
-- **Vistas**: Archivos PHP que renderizan HTML
-- **Layout**: Template principal con navbar y estructura
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
-
-### 1. **Claims** (Reclamos)
+### 1. **Claims** (Reclamos) 🎯
 - **Modelo**: `Claim.php`
 - **Manager**: `ClaimManager.php`
-- **Controller**: `ClaimsController.php`
-- **Vistas**: `index.php`, `create.php`, `edit.php`, `view.php`
-- **Funcionalidad**: CRUD completo de reclamos
+- **Entry Point**: `index.php` - Procesa lógica y ruteo
+- **Vistas**: `views/index.php`, `views/create.php`, `views/edit.php`, `views/view.php`
+- **Funcionalidad**: 
+  - CRUD completo de reclamos
+  - Filtrado por estado y búsqueda
+  - Asignación a analistas y supervisores
+  - Gestión de archivos adjuntos
+  - Historial de cambios
 
-### 2. **Policies** (Pólizas)
+### 2. **Policies** (Pólizas) 📋
 - **Modelo**: `Policy.php`
 - **Manager**: `PolicyManager.php`
-- **Vistas**: `index.php`, `create.php`, `edit.php`, `view.php`
-- **Funcionalidad**: Gestión de pólizas de seguros
+- **Entry Point**: `index.php`
+- **Vistas**: `views/index.php`, `views/create.php`, `views/edit.php`, `views/view.php`
+- **Funcionalidad**: 
+  - Gestión de pólizas de seguros
+  - Tipos de cobertura
+  - Fechas de vigencia
+  - Montos asegurados
 
-### 3. **Users** (Usuarios)
+### 3. **Users** (Usuarios) 👥
 - **Modelo**: `User.php`
 - **Manager**: `UserManager.php`
-- **Vistas**: `index.php`, `create.php`, `edit.php`, `view.php`
-- **Funcionalidad**: Gestión de usuarios y roles
+- **Entry Point**: `index.php`
+- **Vistas**: `views/index.php`, `views/create.php`, `views/edit.php`, `views/view.php`
+- **Funcionalidad**: 
+  - Gestión de usuarios y roles
+  - Asignación de permisos
+  - Activación/desactivación de cuentas
 
-### 4. **Categories** (Categorías)
+### 4. **Categories** (Categorías) 🏷️
 - **Modelo**: `Category.php`
 - **Manager**: `CategoryManager.php`
-- **Vistas**: `index.php`
-- **Funcionalidad**: Categorías de reclamos
+- **Entry Point**: `index.php`
+- **Vistas**: `views/index.php`, `views/create.php`, `views/edit.php`
+- **Funcionalidad**: Categorías de reclamos (Auto, Hogar, Vida, Salud, etc.)
 
-### 5. **Statuses** (Estados)
+### 5. **Statuses** (Estados) 📊
 - **Modelo**: `Status.php`
 - **Manager**: `StatusManager.php`
-- **Vistas**: `index.php`
-- **Funcionalidad**: Estados de reclamos
+- **Entry Point**: `index.php`
+- **Vistas**: `views/index.php`, `views/create.php`, `views/edit.php`
+- **Funcionalidad**: Estados de reclamos (Pendiente, En Revisión, Aprobado, Rechazado, Cerrado)
 
-### 6. **Reports** (Reportes)
+### 6. **Reports** (Reportes) 📈
 - **Manager**: `ReportManager.php`
-- **Vistas**: `index.php`
-- **Funcionalidad**: Generación de reportes y estadísticas
+- **Entry Point**: `index.php`
+- **Vistas**: `views/index.php`
+- **Funcionalidad**: 
+  - Generación de reportes estadísticos
+  - Gráficos de reclamos por estado
+  - Análisis por categoría y período
+  - Exportación de datos
 
-### 7. **Roles** (Roles de Usuario)
+### 7. **Roles** (Roles de Usuario) 🔐
 - **Modelo**: `Role.php`
 - **Manager**: `RoleManager.php`
-- **Vistas**: `index.php`
-- **Funcionalidad**: Roles del sistema
+- **Entry Point**: `index.php`
+- **Vistas**: `views/index.php`, `views/create.php`, `views/edit.php`
+- **Funcionalidad**: Gestión de roles (Admin, Supervisor, Analyst)
 
-### 8. **Decisions** (Decisiones)
+### 8. **Decisions** (Decisiones) ⚖️
 - **Modelo**: `Decision.php`
 - **Manager**: `DecisionManager.php`
-- **Vistas**: `index.php`
-- **Funcionalidad**: Tipos de decisiones
+- **Entry Point**: `index.php`
+- **Vistas**: `views/index.php`, `views/create.php`, `views/edit.php`
+- **Funcionalidad**: Tipos de decisiones (Aprobado, Rechazado, Parcial, Requiere Información)
 
-### 9. **ClaimFiles** (Archivos)
+### 9. **ClaimFiles** (Archivos Adjuntos) 📎
 - **Modelo**: `ClaimFile.php`
 - **Manager**: `ClaimFileManager.php`
-- **Vistas**: `index.php`
-- **Funcionalidad**: Gestión de archivos adjuntos
+- **Entry Point**: `index.php`
+- **Vistas**: `views/index.php`, `views/upload.php`
+- **Funcionalidad**: 
+  - Gestión de archivos adjuntos
+  - Evidencias de reclamos
+  - Control de tipos de archivo
+  - Seguridad en uploads
 
-### 10. **ClaimResults** (Resultados)
+### 10. **ClaimResults** (Resultados) ✅
 - **Modelo**: `ClaimResult.php`
 - **Manager**: `ClaimResultManager.php`
-- **Vistas**: `index.php`
-- **Funcionalidad**: Resultados y resoluciones
+- **Entry Point**: `index.php`
+- **Vistas**: `views/index.php`, `views/create.php`, `views/view.php`
+- **Funcionalidad**: 
+  - Resultados y resoluciones de reclamos
+  - Montos aprobados
+  - Notas de decisión
+  - Historial de resultados
 
 ---
 
@@ -612,51 +563,123 @@ logout()                     // Cierra sesión
 
 ### Conexión (Singleton Pattern)
 
-<<<<<<< HEAD
-=======
-Se utiliza el patrón Singleton para la clase `Database`:
-
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
 ```php
 $db = Database::getInstance()->getConnection();
 ```
 
 ### Tablas Principales
 
-<<<<<<< HEAD
-- `users` - Usuarios del sistema
-- `roles` - Roles (admin, supervisor, analyst)
-- `policies` - Pólizas de seguros
-- `claims` - Reclamos
-- `categories` - Categorías de reclamos
-- `statuses` - Estados de reclamos
-- `decisions` - Tipos de decisiones
-- `claim_files` - Archivos adjuntos
-- `claim_results` - Resultados de reclamos
-- `audit_logs` - Logs de auditoría
-- `notifications` - Notificaciones
-=======
-El proyecto usa **mod_rewrite + routing interno**:
-
-- Cada módulo en `src/` tiene un archivo `index.php` (router)
-- El router lee el parámetro `action` y carga la vista correspondiente
-- Las vistas están en subcarpeta `views/` de cada módulo
-- URLs limpias mediante `.htaccess`
-
-Ejemplo de flujo:
-
+#### 1. **roles** - Roles del Sistema
+```sql
+- id (PK)
+- name (varchar 50) - Nombre del rol
+- description (text) - Descripción
+- created_at - Fecha de creación
 ```
-URL: /PROYECTO/claims/edit/123
-     ↓
-.htaccess reescribe a: src/Claims/index.php?action=edit&id=123
-     ↓
-Router lee action y carga: src/Claims/views/edit.php
+
+#### 2. **users** - Usuarios
+```sql
+- id (PK)
+- name (varchar 100) - Nombre completo
+- email (varchar 100, unique) - Email de acceso
+- password (varchar 255) - Hash de contraseña
+- role_id (FK -> roles) - Rol asignado
+- is_active (boolean) - Estado activo/inactivo
+- created_at - Fecha de registro
 ```
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
+
+#### 3. **policies** - Pólizas de Seguros
+```sql
+- id (PK)
+- policy_number (varchar 50, unique) - Número de póliza
+- insured_name (varchar 200) - Nombre del asegurado
+- policy_type (varchar 100) - Tipo de póliza
+- coverage_amount (decimal 15,2) - Monto de cobertura
+- start_date - Fecha de inicio
+- end_date - Fecha de vencimiento
+- status (enum: active, expired, cancelled) - Estado
+- created_at - Fecha de creación
+```
+
+#### 4. **categories** - Categorías de Reclamos
+```sql
+- id (PK)
+- name (varchar 100) - Nombre (Auto, Hogar, Vida, etc.)
+- description (text) - Descripción
+- created_at - Fecha de creación
+```
+
+#### 5. **statuses** - Estados de Reclamos
+```sql
+- id (PK)
+- name (varchar 50) - Nombre (pending, in-review, approved, etc.)
+- display_name (varchar 100) - Nombre para mostrar
+- description (text) - Descripción
+- color (varchar 20) - Color para UI
+- created_at - Fecha de creación
+```
+
+#### 6. **decisions** - Tipos de Decisiones
+```sql
+- id (PK)
+- name (varchar 50) - Nombre (approved, rejected, partial, etc.)
+- display_name (varchar 100) - Nombre para mostrar
+- description (text) - Descripción
+- created_at - Fecha de creación
+```
+
+#### 7. **claims** - Reclamos
+```sql
+- id (PK)
+- claim_number (varchar 50, unique) - Número de reclamo
+- policy_id (FK -> policies) - Póliza asociada
+- category_id (FK -> categories) - Categoría
+- status_id (FK -> statuses) - Estado actual
+- incident_date - Fecha del siniestro
+- claim_amount (decimal 15,2) - Monto reclamado
+- description (text) - Descripción del incidente
+- analyst_id (FK -> users) - Analista asignado
+- supervisor_id (FK -> users) - Supervisor asignado
+- notes (text) - Notas internas
+- created_at - Fecha de creación
+- updated_at - Fecha de actualización
+```
+
+#### 8. **claim_results** - Resultados de Reclamos
+```sql
+- id (PK)
+- claim_id (FK -> claims) - Reclamo asociado
+- decision_id (FK -> decisions) - Decisión tomada
+- approved_amount (decimal 15,2) - Monto aprobado
+- decision_notes (text) - Notas de la decisión
+- decided_by (FK -> users) - Usuario que decidió
+- decided_at - Fecha de decisión
+- created_at - Fecha de creación
+```
+
+#### 9. **claim_files** - Archivos Adjuntos
+```sql
+- id (PK)
+- claim_id (FK -> claims) - Reclamo asociado
+- file_name (varchar 255) - Nombre del archivo
+- file_path (varchar 500) - Ruta del archivo
+- file_type (varchar 50) - Tipo MIME
+- file_size (int) - Tamaño en bytes
+- uploaded_by (FK -> users) - Usuario que subió
+- uploaded_at - Fecha de subida
+```
+
+### Relaciones Clave
+
+- Un **usuario** tiene un **rol**
+- Una **póliza** puede tener múltiples **reclamos**
+- Un **reclamo** pertenece a una **póliza**, **categoría** y **estado**
+- Un **reclamo** puede tener múltiples **archivos adjuntos**
+- Un **reclamo** puede tener un **resultado** (decisión)
+- Un **reclamo** es gestionado por un **analista** y supervisado por un **supervisor**
 
 ### Métodos Comunes en Managers
 
-<<<<<<< HEAD
 ```php
 // CRUD básico
 getAllXxx()                   // Obtener todos
@@ -682,7 +705,6 @@ getXxxByStatus($status)      // Filtrar por estado
 src/NewModule/
 ├── NewModule.php
 ├── NewModuleManager.php
-├── NewModuleController.php
 ├── index.php
 └── views/
     ├── index.php
@@ -734,54 +756,150 @@ class NewModuleManager {
 }
 ```
 
-#### 4. Crear el Controlador
-
-```php
-<?php
-// src/NewModule/NewModuleController.php
-
-require_once __DIR__ . '/../Controller.php';
-require_once __DIR__ . '/NewModuleManager.php';
-
-class NewModuleController extends Controller {
-    private $manager;
-    
-    public function __construct() {
-        parent::__construct();
-        $this->manager = new NewModuleManager();
-    }
-    
-    public function index() {
-        requireAuth();
-        $items = $this->manager->getAllNewModules();
-        
-        $this->view('NewModule/views/index.php', [
-            'pageTitle' => 'NewModule',
-            'showNav' => true,
-            'items' => $items
-        ]);
-    }
-    
-    // ... otros métodos (create, store, show, edit, update, delete)
-}
-```
-
-#### 5. Crear el index.php del Módulo
+#### 4. Crear el Entry Point (index.php)
 
 ```php
 <?php
 // src/NewModule/index.php
-header('Location: views/index.php');
-exit;
+
+require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/helpers.php';
+require_once __DIR__ . '/../../src/Database.php';
+require_once __DIR__ . '/NewModuleManager.php';
+
+requireAuth(); // Requiere autenticación
+
+$currentUser = getCurrentUser();
+$manager = new NewModuleManager();
+
+// Procesar acciones
+$action = $_GET['action'] ?? 'index';
+
+switch ($action) {
+    case 'create':
+        // Mostrar formulario de creación
+        $pageTitle = 'Crear NewModule';
+        require __DIR__ . '/views/create.php';
+        break;
+        
+    case 'store':
+        // Procesar creación
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'name' => sanitize($_POST['name'] ?? ''),
+                // ... otros campos
+            ];
+            
+            if ($manager->createNewModule($data)) {
+                redirectTo('src/NewModule/index.php');
+            }
+        }
+        break;
+        
+    case 'edit':
+        // Mostrar formulario de edición
+        $id = $_GET['id'] ?? null;
+        $item = $manager->getNewModuleById($id);
+        $pageTitle = 'Editar NewModule';
+        require __DIR__ . '/views/edit.php';
+        break;
+        
+    case 'update':
+        // Procesar actualización
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'] ?? null;
+            $data = [
+                'name' => sanitize($_POST['name'] ?? ''),
+                // ... otros campos
+            ];
+            
+            if ($manager->updateNewModule($id, $data)) {
+                redirectTo('src/NewModule/index.php');
+            }
+        }
+        break;
+        
+    case 'delete':
+        // Eliminar
+        $id = $_GET['id'] ?? null;
+        if ($manager->deleteNewModule($id)) {
+            redirectTo('src/NewModule/index.php');
+        }
+        break;
+        
+    default: // index
+        // Listar todos
+        $items = $manager->getAllNewModules();
+        $pageTitle = 'NewModule - Lista';
+        require __DIR__ . '/views/index.php';
+        break;
+}
 ```
 
-#### 6. Crear las Vistas
+#### 5. Crear las Vistas
 
-Las vistas deben seguir la estructura estándar con:
-- Header con título y botones
-- Cards para organizar contenido
-- Formularios con validación
-- Tablas responsivas para listados
+Las vistas deben seguir la estructura estándar. Ejemplo de `views/index.php`:
+
+```php
+<?php
+$showNav = true;
+ob_start();
+?>
+
+<div class="page-header">
+    <h1><i class="fas fa-icon"></i> NewModule</h1>
+    <a href="?action=create" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Crear Nuevo
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Lista de Elementos</h2>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($items as $item): ?>
+                <tr>
+                    <td><?= $item['id'] ?></td>
+                    <td><?= htmlspecialchars($item['name']) ?></td>
+                    <td>
+                        <a href="?action=edit&id=<?= $item['id'] ?>" class="btn btn-sm btn-info">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="?action=delete&id=<?= $item['id'] ?>" 
+                           class="btn btn-sm btn-danger"
+                           onclick="return confirm('¿Eliminar?')">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php
+$content = ob_get_clean();
+require_once __DIR__ . '/../../../views/layout.php';
+?>
+```
+
+Estructura de vistas:
+- **index.php**: Listado con tabla y filtros
+- **create.php**: Formulario de creación
+- **edit.php**: Formulario de edición
+- **view.php**: Vista de detalle (opcional)
 
 ### Convenciones de Código
 
@@ -807,46 +925,119 @@ Las vistas deben seguir la estructura estándar con:
 
 ## 🔐 Credenciales de Acceso
 
-### Usuario Administrador
+### Usuarios de Prueba
 
-```
-Email: admin@sistema.com
-Password: admin123
-```
+| Rol | Email | Password | Permisos |
+|-----|-------|----------|----------|
+| **Administrador** | `admin@sistema.com` | `admin123` | ✅ Acceso total<br>✅ Gestión de usuarios<br>✅ Configuración del sistema<br>✅ Todos los reportes |
+| **Supervisor** | `supervisor@sistema.com` | `supervisor123` | ✅ Ver todos los reclamos asignados<br>✅ Asignar analistas<br>✅ Aprobar/rechazar reclamos<br>✅ Reportes de equipo |
+| **Analista** | `analista@sistema.com` | `analista123` | ✅ Ver reclamos asignados<br>✅ Actualizar estado<br>✅ Subir documentos<br>✅ Crear resultados |
 
-⚠️ **Importante**: Cambiar estas credenciales en producción.
+### 🔒 Matriz de Permisos
 
-### Roles Disponibles
+| Función | Admin | Supervisor | Analyst |
+|---------|-------|------------|---------|
+| Ver todos los reclamos | ✅ | ❌ | ❌ |
+| Ver reclamos asignados | ✅ | ✅ | ✅ |
+| Crear reclamos | ✅ | ✅ | ✅ |
+| Editar reclamos | ✅ | ✅ | ⚠️ Solo asignados |
+| Eliminar reclamos | ✅ | ⚠️ Solo propios | ❌ |
+| Gestionar usuarios | ✅ | ❌ | ❌ |
+| Gestionar pólizas | ✅ | ✅ | ❌ |
+| Ver reportes completos | ✅ | ⚠️ De su equipo | ⚠️ Propios |
+| Configurar sistema | ✅ | ❌ | ❌ |
 
-- **Admin**: Acceso total al sistema
-- **Supervisor**: Gestión de reclamos y usuarios
-- **Analyst**: Procesamiento de reclamos
+⚠️ **Importante**: Cambiar estas credenciales antes de ir a producción.
 
 ---
 
 ## 📊 Datos Iniciales (Seed)
 
-El seed crea automáticamente:
+El seed (`database/seed.php`) crea automáticamente:
 
-✅ **3 Roles**: admin, supervisor, analyst  
-✅ **6 Categorías**: Auto, Hogar, Vida, Salud, Robo, Incendio  
-✅ **5 Estados**: pending, in-review, approved, rejected, closed  
-✅ **4 Decisiones**: approved, rejected, partial, requires-info  
-✅ **1 Usuario Admin**: admin@sistema.com  
-✅ **2 Pólizas de Ejemplo**: Para testing
+### ✅ **3 Roles**
+- **Admin** - Acceso total al sistema
+- **Supervisor** - Gestión de reclamos y equipos
+- **Analyst** - Procesamiento de reclamos
+
+### ✅ **6 Categorías de Reclamos**
+- Auto - Accidentes vehiculares
+- Hogar - Daños en propiedad residencial
+- Vida - Seguros de vida
+- Salud - Gastos médicos
+- Robo - Pérdidas por robo
+- Incendio - Daños por fuego
+
+### ✅ **5 Estados de Reclamos**
+- **Pending** (Pendiente) - Recién creado
+- **In Review** (En Revisión) - Siendo evaluado
+- **Approved** (Aprobado) - Aprobado para pago
+- **Rejected** (Rechazado) - No procede
+- **Closed** (Cerrado) - Finalizado
+
+### ✅ **4 Tipos de Decisiones**
+- **Approved** (Aprobado) - Reclamo aprobado completamente
+- **Rejected** (Rechazado) - Reclamo denegado
+- **Partial** (Parcial) - Aprobado parcialmente
+- **Requires Info** (Requiere Información) - Necesita más datos
+
+### ✅ **3 Usuarios de Prueba**
+```
+Admin:
+- Email: admin@sistema.com
+- Password: admin123
+- Rol: Administrador
+
+Supervisor:
+- Email: supervisor@sistema.com
+- Password: supervisor123
+- Rol: Supervisor
+
+Analista:
+- Email: analista@sistema.com
+- Password: analista123
+- Rol: Analista
+```
+
+### ✅ **2 Pólizas de Ejemplo**
+- Póliza de Auto (#POL-2024-001)
+- Póliza de Hogar (#POL-2024-002)
+
+### Ejecutar el Seed
+
+```bash
+php database/seed.php
+```
+
+O desde el navegador:
+```
+http://localhost/PROYECTO/database/seed.php
+```
 
 ---
 
 ## 🔧 Comandos Útiles
 
-### Reiniciar Base de Datos
+### Reiniciar Base de Datos Completa
 
 ```sql
 DROP DATABASE IF EXISTS proyecto_reclamos;
 CREATE DATABASE proyecto_reclamos CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-Luego ejecutar migraciones y seed nuevamente.
+Luego ejecutar:
+```
+http://localhost/PROYECTO/run-migrations.php
+http://localhost/PROYECTO/database/seed.php
+```
+
+### Limpiar Solo Tablas (Mantener Estructura)
+
+```
+http://localhost/PROYECTO/database/drop-all-tables.php
+```
+
+Luego ejecutar migraciones y seed.
 
 ### Ver Estructura de Tablas
 
@@ -854,14 +1045,136 @@ Luego ejecutar migraciones y seed nuevamente.
 USE proyecto_reclamos;
 SHOW TABLES;
 DESCRIBE claims;
+DESCRIBE users;
+```
+
+### Verificar Configuración
+
+```
+http://localhost/PROYECTO/test-config.php
+http://localhost/PROYECTO/test-connection.php
+http://localhost/PROYECTO/check-data.php
 ```
 
 ### Limpiar Sesiones
 
 ```php
-// En PHP
+// En navegador
+http://localhost/PROYECTO/auth/logout.php
+
+// O en terminal PHP
 session_start();
 session_destroy();
+```
+
+---
+
+## 🐛 Troubleshooting (Solución de Problemas)
+
+### Error: "Connection refused"
+
+**Problema**: No se puede conectar a la base de datos.
+
+**Solución**:
+1. Verificar que MySQL/MariaDB esté corriendo
+2. Revisar credenciales en `.env`
+3. Verificar que la base de datos exista:
+   ```sql
+   SHOW DATABASES LIKE 'proyecto_reclamos';
+   ```
+
+### Error: "Access denied for user"
+
+**Problema**: Credenciales incorrectas de base de datos.
+
+**Solución**:
+1. Verificar `.env`:
+   ```env
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+2. Probar conexión con phpMyAdmin o similar
+
+### Error: "Table doesn't exist"
+
+**Problema**: Migraciones no ejecutadas.
+
+**Solución**:
+```
+http://localhost/PROYECTO/run-migrations.php
+```
+
+### Error: "Session already started"
+
+**Problema**: Sesión iniciada múltiples veces.
+
+**Solución**:
+- Asegurarse de que `session_start()` solo se llame una vez
+- Revisar que esté en `config.php` o al inicio del archivo
+
+### Error: "Headers already sent"
+
+**Problema**: Salida antes de header/redirect.
+
+**Solución**:
+- Verificar que no haya espacios antes de `<?php`
+- Usar `ob_start()` al inicio del archivo
+- Verificar que no haya `echo` antes de `header()`
+
+### No se muestran estilos CSS
+
+**Problema**: Ruta incorrecta a archivos CSS.
+
+**Solución**:
+1. Verificar `BASE_PATH` en `.env`
+2. Usar función `asset()`:
+   ```php
+   <link rel="stylesheet" href="<?= asset('css/insurance-theme.css') ?>">
+   ```
+
+### Error 404 en módulos
+
+**Problema**: Ruta incorrecta en URLs.
+
+**Solución**:
+- Usar función `url()` para todas las URLs:
+  ```php
+  <a href="<?= url('src/Claims/index.php') ?>">Reclamos</a>
+  ```
+
+### No aparecen datos del seed
+
+**Problema**: Seed no ejecutado o falló.
+
+**Solución**:
+1. Ejecutar directamente:
+   ```bash
+   php database/seed.php
+   ```
+2. Revisar errores en la salida
+3. Verificar que las migraciones estén completas
+
+### Usuario no puede iniciar sesión
+
+**Problema**: Hash de contraseña incorrecto o usuario inactivo.
+
+**Solución**:
+1. Verificar que el usuario esté activo:
+   ```sql
+   SELECT * FROM users WHERE email = 'admin@sistema.com';
+   ```
+2. Regenerar contraseña:
+   ```php
+   $hash = password_hash('admin123', PASSWORD_DEFAULT);
+   ```
+
+### Error: "Undefined function url()"
+
+**Problema**: `helpers.php` no incluido.
+
+**Solución**:
+```php
+require_once __DIR__ . '/../../includes/helpers.php';
 ```
 
 ---
@@ -899,19 +1212,75 @@ Para cambiar el tema, modifica estas variables.
 
 ## 📝 Notas de Versión
 
-### v2.0.0 - Arquitectura MVC (Actual)
-- ✅ Implementación completa de MVC
-- ✅ Controladores para todos los módulos
+### v2.1.0 - Sistema Completo (Actual - Diciembre 2024)
+- ✅ 10 módulos completamente funcionales
+- ✅ Sistema de gestión de archivos adjuntos
+- ✅ Reportes y estadísticas avanzadas
+- ✅ Control de acceso por roles (Admin, Supervisor, Analyst)
+- ✅ Búsqueda y filtros dinámicos
+- ✅ Dashboard personalizado por rol
+- ✅ Sistema de migraciones y seeds
+- ✅ Diseño responsive profesional
+- ✅ Documentación completa
+
+### v2.0.0 - Arquitectura MVC
+- ✅ Implementación de patrón MVC simplificado
+- ✅ Separación de responsabilidades (Models, Managers, Views)
 - ✅ Vistas completas (index, create, edit, view)
 - ✅ Diseño profesional de seguros
 - ✅ Landing page moderna
-- ✅ Documentación consolidada
+- ✅ Sistema de helpers y utilidades
 
 ### v1.0.0 - Versión Inicial
-- ✅ Estructura básica
+- ✅ Estructura básica del proyecto
 - ✅ CRUD de reclamos y pólizas
 - ✅ Sistema de autenticación
-- ✅ Dashboard con estadísticas
+- ✅ Dashboard con estadísticas básicas
+- ✅ Base de datos inicial
+
+---
+
+## ❓ Preguntas Frecuentes (FAQ)
+
+### ¿Puedo usar este proyecto para mi empresa?
+Sí, es un proyecto educativo que puede ser adaptado para uso comercial. Se recomienda revisar y fortalecer aspectos de seguridad antes de producción.
+
+### ¿Cómo agrego un nuevo módulo?
+Sigue la guía en la sección [Crear un Nuevo Módulo](#crear-un-nuevo-módulo). La estructura es consistente en todos los módulos.
+
+### ¿Necesito instalar Composer?
+No es estrictamente necesario. El proyecto está diseñado para funcionar con PHP vanilla sin dependencias externas.
+
+### ¿Puedo usar otro motor de base de datos?
+El código usa PDO, por lo que con modificaciones mínimas podrías usar PostgreSQL, SQLite u otros motores compatibles.
+
+### ¿Cómo cambio el diseño/tema?
+Modifica el archivo `public/assets/css/insurance-theme.css`. Las variables CSS están en la parte superior para facilitar cambios de color.
+
+### ¿Dónde están los logs de errores?
+Actualmente los errores se muestran en pantalla (modo desarrollo). Para producción, configura el manejo de errores de PHP:
+```php
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', '/path/to/error.log');
+```
+
+### ¿Cómo implemento envío de emails?
+Puedes usar PHPMailer o la función `mail()` de PHP. Crea un `EmailManager` en `src/` para centralizar la lógica.
+
+### ¿El sistema soporta múltiples idiomas?
+Actualmente está en español. Para i18n, considera implementar un sistema de traducciones o usar gettext.
+
+### ¿Hay documentación de la API?
+Este es un sistema web tradicional (no API REST). Si necesitas una API, considera crear endpoints en formato JSON.
+
+### ¿Cómo hago backup de la base de datos?
+```bash
+mysqldump -u root -p proyecto_reclamos > backup.sql
+
+# Restaurar
+mysql -u root -p proyecto_reclamos < backup.sql
+```
 
 ---
 
@@ -924,6 +1293,14 @@ Para contribuir al proyecto:
 3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
+
+### Guía de Estilo
+
+- Usa PSR-12 para estilo de código PHP
+- Comenta funciones complejas
+- Mantén la consistencia con el código existente
+- Escribe commits descriptivos en español
+- Actualiza la documentación si es necesario
 
 ---
 
@@ -949,46 +1326,32 @@ Desarrollado como proyecto final de Desarrollo Web VII - UTP
 
 ---
 
-*Última actualización: 8 de diciembre de 2025*
-=======
-### Error: "Cannot connect to database"
+---
 
-- Verificar credenciales en `.env`
-- Asegurar que MySQL esté ejecutándose
-- Comprobar que la base de datos existe
+## 🎨 Extensión Recomendada para Visualización
 
-### Error: "Class not found"
+Para visualizar este README de forma más atractiva en VS Code, instala:
 
-- Verificar includes en los archivos PHP
-- Comprobar rutas relativas correctas
+**[Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced)**
 
-### Estilos no se cargan
+### Características:
+- ✅ Vista previa en tiempo real
+- ✅ Soporte para emojis y tablas
+- ✅ Resaltado de sintaxis mejorado
+- ✅ Exportación a PDF/HTML
+- ✅ Gráficos y diagramas
+- ✅ Scroll sincronizado
 
-- Verificar `BASE_URL` y `PUBLIC_URL` en `config.php`
-- Comprobar que mod_rewrite esté habilitado
+### Instalación:
+1. Abre VS Code
+2. Ve a Extensiones (`Ctrl+Shift+X`)
+3. Busca "Markdown Preview Enhanced"
+4. Instala la extensión de `shd101wyy`
+5. Abre el README y presiona `Ctrl+K V` para vista previa lado a lado
 
-## 📚 Próximas Mejoras
-
-- [ ] Implementar sistema de notificaciones por email
-- [ ] Agregar carga masiva de archivos
-- [ ] Exportación a Excel/PDF de reportes
-- [ ] API REST para integraciones
-- [ ] Sistema de auditoría de cambios
-- [ ] Dashboard con gráficos interactivos (Chart.js)
-- [ ] Implementar tokens CSRF
-- [ ] Sistema de permisos granulares
-
-## 👨‍💻 Autor
-
-**Oscar Ríos**
-Desarrollo VII - Universidad Tecnológica de Panamá
-
-## 📄 Licencia
-
-Este proyecto es parte de un trabajo académico para el curso de Desarrollo VII.
+### Alternativa:
+**[Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)** - Para edición y navegación mejorada
 
 ---
 
-**Fecha de Entrega:** Noviembre 2025
-**Versión:** 1.0.0
->>>>>>> df864e76dfd7e0a1c1abd64b75681027cf799a15
+*Última actualización: 13 de diciembre de 2024*
